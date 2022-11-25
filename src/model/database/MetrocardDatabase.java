@@ -1,5 +1,7 @@
 package model.database;
 
+import jxl.read.biff.BiffException;
+import jxl.write.WriteException;
 import model.Metrocard;
 import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.MetrocardsTekstLoadSaveStrategy;
@@ -25,11 +27,11 @@ public class MetrocardDatabase {
         this.loadSaveStrategy = loadSaveStrategy;
     }
 
-    public void load(String path, MetrocardDatabase db) {
+    public void load(String path, MetrocardDatabase db) throws BiffException, IOException {
        loadSaveStrategy.load(path, db);
     }
 
-    public void save(String path, MetrocardDatabase db) {
+    public void save(String path, MetrocardDatabase db) throws WriteException, IOException {
         loadSaveStrategy.save(path, db);
     }
     public ArrayList<Metrocard> getMetrocardList(){
