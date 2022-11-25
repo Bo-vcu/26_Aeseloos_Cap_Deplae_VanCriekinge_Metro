@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class MetrocardsTekstLoadSaveStrategy implements LoadSaveStrategy{
+public class MetrocardsTekstLoadSaveStrategy extends TekstLoadSaveTemplate implements LoadSaveStrategy{
 
 
     public void load(String path, MetrocardDatabase db) {

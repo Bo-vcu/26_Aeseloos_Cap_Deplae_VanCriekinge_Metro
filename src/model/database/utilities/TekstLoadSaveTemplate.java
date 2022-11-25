@@ -1,8 +1,5 @@
 package model.database.utilities;
 
-import model.Metrocard;
-import model.database.MetrocardDatabase;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -20,16 +17,13 @@ public class TekstLoadSaveTemplate {
                 String metrocard = scanner.nextLine();
                 String[] values = metrocard.split(";");
                 //ID
-                int int1 = Integer.parseInt(values[0]);
+                String one = values[0];
                 //maand_jaar
-                String string = values[1];
+                String two = values[1];
                 //aantal beschikbare ritten
-                int int2 = Integer.parseInt(values[2]);
+                String three = values[2];
                 //aantal verbruikte ritten
-                int int3 = Integer.parseInt(values[3]);
-
-
-
+                String four = values[3];
 
             }
             scanner.close();
