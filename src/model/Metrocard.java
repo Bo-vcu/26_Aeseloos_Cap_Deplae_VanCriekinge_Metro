@@ -16,12 +16,14 @@ public class Metrocard {
         this.aantalVerbruikte = aantalVerbruikte;
     }
 
+    //getters niet verwijderen!!!!!!!!!!!!!
     public int getId() {
         return id;
     }
 
     public String getMaand_jaar() {
-        return maand_jaar;
+        String[] parts = maand_jaar.split("#");
+        return parts[0]+"/"+parts[1];
     }
 
     public int getAantalBeschikbare() {

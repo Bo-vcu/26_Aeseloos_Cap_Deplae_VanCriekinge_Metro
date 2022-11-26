@@ -27,12 +27,12 @@ public class MetrocardDatabase {
         this.loadSaveStrategy = loadSaveStrategy;
     }
 
-    public void load(String path, MetrocardDatabase db) throws BiffException, IOException {
-       loadSaveStrategy.load(path, db);
+    public void load(String path) throws BiffException, IOException {
+       loadSaveStrategy.load(path, this);
     }
 
-    public void save(String path, MetrocardDatabase db) throws WriteException, IOException {
-        loadSaveStrategy.save(path, db);
+    public void save(String path) throws WriteException, IOException {
+        loadSaveStrategy.save(path, this);
     }
     public ArrayList<Metrocard> getMetrocardList(){
         return new ArrayList<Metrocard>(metrocards.values());
