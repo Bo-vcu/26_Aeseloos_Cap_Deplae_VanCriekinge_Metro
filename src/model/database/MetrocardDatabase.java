@@ -42,7 +42,7 @@ public class MetrocardDatabase {
   public static void main(String[] args) throws BiffException, IOException, WriteException {
         MetrocardDatabase db = new MetrocardDatabase();
         db.setLoadSaveStrategy(new MetroCardsExcelLoadSaveStrategy());
-        db.load("src/bestanden/metrocards.txt");
+        db.load("src/bestanden/metrocards.xls");
         //db.save("src/bestanden/metrocards.txt");
 
         System.out.println(db.getMetrocardList());
