@@ -38,12 +38,12 @@ public class MetrocardDatabase {
         return new ArrayList<Metrocard>(metrocards.values());
     }
 
-  /*public static void main(String[] args) {
+  public static void main(String[] args) throws BiffException, IOException, WriteException {
         MetrocardDatabase db = new MetrocardDatabase();
         db.setLoadSaveStrategy(new MetrocardsTekstLoadSaveStrategy());
-        db.load("26_Aesloos_Cap_Deplae_VanCriekinge_Metro/src/bestanden/metrocards.txt", db);
-        //db.save("src/bestanden/metrocards.txt");
+        db.load("src/bestanden/metrocards.txt");
+        db.save("src/bestanden/metrocards.txt");
 
         System.out.println(db.getMetrocardList());
-    }*/
+    }
 }

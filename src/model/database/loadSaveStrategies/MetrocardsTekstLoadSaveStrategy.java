@@ -8,39 +8,29 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class MetrocardsTekstLoadSaveStrategy extends TekstLoadSaveTemplate implements LoadSaveStrategy{
 
-
-    public void load(String path, MetrocardDatabase db) {
+  public void load(String path, MetrocardDatabase db) throws IOException {
         File file = new File(path);
-        try {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                //Type
-                String metrocard = scanner.nextLine();
-                String[] values = metrocard.split(";");
-                //ID
-                int id = Integer.parseInt(values[0]);
-                //maand_jaar
-                String maand_jaar = values[1];
-                //aantal beschikbare ritten
-                int aantalBeschikbare = Integer.parseInt(values[2]);
-                //aantal verbruikte ritten
-                int aantalVerbruikte = Integer.parseInt(values[3]);
+        Map added = super.load(file);
+        db.metrocards.putAll(added);
 
-                db.metrocards.put(id, new Metrocard(id, maand_jaar, aantalBeschikbare, aantalVerbruikte));
+        System.out.println("Successfully loaded (" + added.size() + ") cards from file.");
 
+    }
 
-            }
-            scanner.close();
-            System.out.println("Successfully loaded (" + db.metrocards.size() + ") cards from file.");
-        } catch (FileNotFoundException fnfe ){
-            System.out.println("File doesn't exist yet.");
-        } catch (Exception e) {
-            System.out.println("Error found while reading file!!");
+    protected Metrocard maakObject(String[] tokens) {
+            Metrocard metrocard = new Metrocard(Integer.parseInt(tokens[0]), tokens[1], Integer.parseInt(tokens[2]),
+                    Integer.parseInt(tokens[3]));
+            return metrocard;
         }
+
+    protected String getKey(String[] tokens){
+        return tokens[0];
     }
 
     public void save(String path, MetrocardDatabase db) {
@@ -57,4 +47,5 @@ public class MetrocardsTekstLoadSaveStrategy extends TekstLoadSaveTemplate imple
             e.printStackTrace();
         }
     }
+
 }
