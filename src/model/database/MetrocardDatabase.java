@@ -43,7 +43,7 @@ public class MetrocardDatabase {
         MetrocardDatabase db = new MetrocardDatabase();
         db.setLoadSaveStrategy(new MetroCardsExcelLoadSaveStrategy());
         db.load("src/bestanden/metrocards.xls");
-        //db.save("src/bestanden/metrocards.txt");
+        db.save("src/bestanden/metrocards.xls");
 
         System.out.println(db.getMetrocardList());
     }
