@@ -28,10 +28,8 @@ public class ControlCenterPane extends GridPane {
         this.setHgap(5);
 
         Button openMetroStationButton = new Button("Open Metrostation");
-        this.add(openMetroStationButton,50,50,1,1);
-        //openMetroStationButton.setOnAction(controlCenterPaneController.);
-
-
+        this.add(openMetroStationButton, 50, 50, 1, 1);
+        openMetroStationButton.setOnAction(event -> controlCenterPaneController.openMetroStation());
 
     }
 
