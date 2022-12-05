@@ -8,10 +8,20 @@ import java.util.Properties;
 
 public class LoadSaveStrategyFactory {
 
-    public LoadSaveStrategy createLoadSaveStrategy() throws IOException {
+    public LoadSaveStrategy createLoadSaveStrategy() {
         Properties properties = new Properties();
-        InputStream is = new FileInputStream("src/bestanden/settings.properties");
+        InputStream is = null;
+        LoadSaveStrategy loadSaveStrategy = null;
+        try {
+            is = new FileInputStream("src/bestanden/settings.properties");
+            properties.load(is);
 
-        properties.load(is);
+            Class dbClass =Class.forName(properties.getProperty("database"));
+            Object dbObject = dbClass.newInstance();
+            loadSaveStrategy = (LoadSaveStrategy) dbObject;
+        } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        return loadSaveStrategy;
     }
 }
