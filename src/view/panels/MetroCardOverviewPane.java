@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import jxl.read.biff.BiffException;
 import model.Metrocard;
 import model.database.MetrocardDatabase;
+import model.database.loadSaveStrategies.MetroCardsExcelLoadSaveStrategy;
 import model.database.loadSaveStrategies.MetrocardsTekstLoadSaveStrategy;
 import model.database.utilities.TekstLoadSaveTemplate;
 
@@ -69,8 +70,8 @@ public class MetroCardOverviewPane extends GridPane{
 
 	public void refresh(){
 		try {
-			metrocardDatabase.setLoadSaveStrategy(new MetrocardsTekstLoadSaveStrategy());
-			metrocardDatabase.load("src/bestanden/metrocards.txt");
+			metrocardDatabase.setLoadSaveStrategy(new MetroCardsExcelLoadSaveStrategy());
+			metrocardDatabase.load("src/bestanden/metrocards.xls");
 		} catch (BiffException | IOException e) {
 			throw new RuntimeException(e);
 		}
