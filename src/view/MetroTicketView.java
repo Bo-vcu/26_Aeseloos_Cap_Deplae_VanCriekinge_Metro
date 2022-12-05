@@ -1,12 +1,14 @@
 package view;
 
+import controller.MetroTicketViewController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;	
 
 public class MetroTicketView {
-	private Stage stage = new Stage();		
+	private Stage stage = new Stage();
+	private MetroTicketViewController metroTicketViewController;
 		
 	public MetroTicketView(){			
 		stage.setTitle("METROTICKET VIEW");

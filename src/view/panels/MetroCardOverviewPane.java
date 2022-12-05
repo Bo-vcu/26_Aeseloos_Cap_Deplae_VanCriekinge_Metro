@@ -1,6 +1,7 @@
 package view.panels;
 
 
+import controller.MetroCardOverviewPaneController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -25,6 +26,7 @@ import java.io.IOException;
 
 
 public class MetroCardOverviewPane extends GridPane{
+	private MetroCardOverviewPaneController metroCardOverviewPaneController;
 	private MetrocardDatabase metrocardDatabase = new MetrocardDatabase();
 	private TableView<Metrocard> table;
 	private ObservableList<Metrocard> metrocards;
@@ -43,7 +45,7 @@ public class MetroCardOverviewPane extends GridPane{
 		lblHeading.setFont(new Font("Arial", 20));
 
 		table= new TableView<>();
-		refresh();
+		//refresh();
 
 		TableColumn<Metrocard, Integer> colid = new TableColumn<>("ticket  nummer");
 		colid.setMinWidth(100);
@@ -63,7 +65,6 @@ public class MetroCardOverviewPane extends GridPane{
 
 		table.getColumns().addAll(colid, colYear, colbeschibaar, colverbruikt);
 		root.getChildren().addAll(lblHeading, table);
-
 		this.add(root,0,1,1,1);
 
 	}
@@ -79,4 +80,5 @@ public class MetroCardOverviewPane extends GridPane{
 		table.setItems(metrocards);
 		table.refresh();
 	}
+
 }
