@@ -7,11 +7,11 @@ import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.MetroCardsExcelLoadSaveStrategy;
 import model.database.loadSaveStrategies.MetrocardsTekstLoadSaveStrategy;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.TreeMap;
 
@@ -40,11 +40,19 @@ public class MetrocardDatabase {
     }
 
   public static void main(String[] args) throws BiffException, IOException, WriteException {
+       Properties properties = new Properties();
+      InputStream is = Files.newInputStream(Paths.get("src/bestanden/settings.properties"));
+
+      properties.load(is);
+      String dbType = properties.getProperty("database");
+
         MetrocardDatabase db = new MetrocardDatabase();
 
+
         db.setLoadSaveStrategy(new MetroCardsExcelLoadSaveStrategy());
-        db.load("src/bestanden/metrocards.xls");
-        db.save("src/bestanden/metrocards.xls");
+        System.out.println("src/bestanden/metrocards."+dbType);
+        db.load("src/bestanden/metrocards."+dbType);
+        //db.save("src/bestanden/metrocards."+dbType);
 
 
         System.out.println(db.getMetrocardList());
