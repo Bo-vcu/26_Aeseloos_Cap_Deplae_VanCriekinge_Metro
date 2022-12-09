@@ -8,11 +8,7 @@ import java.util.ArrayList;
 public class MetroFacade {
     LoadSaveStrategyFactory loadSaveStrategyFactory = new LoadSaveStrategyFactory();
     public void openMetroStation(){
-        try {
-            loadSaveStrategyFactory.createLoadSaveStrategy();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        loadSaveStrategyFactory.createLoadSaveStrategy();
 
     }
     public ArrayList<Metrocard> getMetroCardList(){
