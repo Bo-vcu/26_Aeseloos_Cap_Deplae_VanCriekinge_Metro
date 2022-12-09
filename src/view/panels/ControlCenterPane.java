@@ -19,8 +19,7 @@ import model.database.loadSaveStrategies.MetroCardsExcelLoadSaveStrategy;
 import java.io.IOException;
 
 public class ControlCenterPane extends GridPane {
-    private ControlCenterPaneController controlCenterPaneController;
-
+    private ControlCenterPaneController controlCenterPaneController = new ControlCenterPaneController();
 
     public ControlCenterPane() {
         this.setPadding(new Insets(5, 5, 5, 5));

@@ -5,9 +5,7 @@ import model.Observer;
 import model.database.loadSaveStrategies.LoadSaveStrategy;
 import view.panels.MetroStationSetupPane;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 
 public class MetroStationSetupPaneController implements Observer {
@@ -18,7 +16,7 @@ public class MetroStationSetupPaneController implements Observer {
 
     }
 
-    public void save(LoadSaveStrategy loadSaveStrategy) {
+    public void save(LoadSaveStrategy loadSaveStrategy) throws IOException {
         Properties properties = new Properties();
         InputStream is = null;
         try {
@@ -28,6 +26,6 @@ public class MetroStationSetupPaneController implements Observer {
             throw new RuntimeException(e);
         }
         properties.setProperty("database", loadSaveStrategy.getClass().getSimpleName());
-
+        properties.store(new FileOutputStream("src/bestanden/settings.properties"), null);
     }
 }

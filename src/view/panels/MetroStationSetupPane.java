@@ -16,6 +16,8 @@ import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.MetroCardsExcelLoadSaveStrategy;
 import model.database.loadSaveStrategies.MetrocardsTekstLoadSaveStrategy;
 
+import java.io.IOException;
+
 public class MetroStationSetupPane extends GridPane {
     private MetroStationSetupPaneController metroStationSetupPaneController = new MetroStationSetupPaneController();
     private String strategy;
@@ -36,7 +38,13 @@ public class MetroStationSetupPane extends GridPane {
         button1.setSelected(true);
 
         root.getChildren().addAll(button1,button2);
-        saveButton.setOnAction(event -> metroStationSetupPaneController.save((LoadSaveStrategy) group.getSelectedToggle().getUserData()));
+        saveButton.setOnAction(event -> {
+            try {
+                metroStationSetupPaneController.save((LoadSaveStrategy) group.getSelectedToggle().getUserData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         this.add(root,1,1);
     }
