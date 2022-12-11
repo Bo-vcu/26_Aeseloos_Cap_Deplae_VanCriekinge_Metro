@@ -28,7 +28,15 @@ public class ControlCenterPane extends GridPane {
 
         Button openMetroStationButton = new Button("Open Metrostation");
         this.add(openMetroStationButton, 50, 50, 1, 1);
-        openMetroStationButton.setOnAction(event -> controlCenterPaneController.openMetroStation());
+        openMetroStationButton.setOnAction(event -> {
+            try {
+                controlCenterPaneController.openMetroStation();
+            } catch (BiffException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
     }
 

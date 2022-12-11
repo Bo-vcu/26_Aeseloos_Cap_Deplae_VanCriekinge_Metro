@@ -1,8 +1,11 @@
 package controller;
 
+import jxl.read.biff.BiffException;
 import model.MetroFacade;
 import model.Observer;
 import view.panels.ControlCenterPane;
+
+import java.io.IOException;
 
 public class ControlCenterPaneController implements Observer {
     private ControlCenterPane controlCenterPane;
@@ -12,7 +15,7 @@ public class ControlCenterPaneController implements Observer {
 
     }
 
-    public void openMetroStation(){
+    public void openMetroStation() throws BiffException, IOException {
         metroFacade.openMetroStation();
     }
 }

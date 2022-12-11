@@ -16,7 +16,7 @@ public class LoadSaveStrategyFactory {
             is = new FileInputStream("src/bestanden/settings.properties");
             properties.load(is);
 
-            Class dbClass =Class.forName(properties.getProperty("database"));
+            Class dbClass = Class.forName("model.database.loadSaveStrategies."+properties.getProperty("database"));
             Object dbObject = dbClass.newInstance();
             loadSaveStrategy = (LoadSaveStrategy) dbObject;
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
