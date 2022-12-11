@@ -18,4 +18,9 @@ public class ControlCenterPaneController implements Observer {
     public void openMetroStation() throws BiffException, IOException {
         metroFacade.openMetroStation();
     }
+
+    @Override
+    public void update() {
+
+    }
 }
