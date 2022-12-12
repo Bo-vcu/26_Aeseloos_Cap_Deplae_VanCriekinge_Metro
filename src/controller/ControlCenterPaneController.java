@@ -23,4 +23,9 @@ public class ControlCenterPaneController implements Observer {
     public void update() {
 
     }
+
+    @Override
+    public void update() {
+
+    }
 }
