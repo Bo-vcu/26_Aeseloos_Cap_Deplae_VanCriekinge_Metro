@@ -8,12 +8,10 @@ import javafx.stage.StageStyle;
 import model.MetroFacade;
 
 public class MetroStationView {
-	private MetroFacade metro;
-	private Stage stage = new Stage();		
+	private Stage stage = new Stage();
 	private MetroStationViewController metroStationViewController;
 
 	public MetroStationView(MetroFacade metro){
-		this.metro = metro;
 		this.metroStationViewController = new MetroStationViewController(metro, this);
 		stage.setTitle("METRO STATION VIEW");
 		stage.initStyle(StageStyle.UTILITY);
