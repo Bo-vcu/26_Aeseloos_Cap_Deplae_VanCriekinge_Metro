@@ -4,13 +4,14 @@ import controller.MetroTicketViewController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;	
+import javafx.stage.StageStyle;
+import model.MetroFacade;
 
 public class MetroTicketView {
 	private Stage stage = new Stage();
 	private MetroTicketViewController metroTicketViewController;
 		
-	public MetroTicketView(){			
+	public MetroTicketView(MetroFacade metro){
 		stage.setTitle("METROTICKET VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(5);

@@ -2,6 +2,7 @@ package application;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
+import model.MetroFacade;
 import view.*;
 
 
@@ -9,9 +10,10 @@ import view.*;
 public class MetroMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
-		AdminView adminView = new AdminView();
-		MetroTicketView metroTicketView = new MetroTicketView();
-		MetroStationView metroStationView = new MetroStationView();
+		MetroFacade metro = new MetroFacade();
+		AdminView adminView = new AdminView(metro);
+		MetroTicketView metroTicketView = new MetroTicketView(metro);
+		MetroStationView metroStationView = new MetroStationView(metro);
 	}
 	
 	public static void main(String[] args) {

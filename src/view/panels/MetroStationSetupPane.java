@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.MetroFacade;
 import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.MetroCardsExcelLoadSaveStrategy;
@@ -22,7 +23,7 @@ public class MetroStationSetupPane extends GridPane {
     private MetroStationSetupPaneController metroStationSetupPaneController = new MetroStationSetupPaneController();
     private String strategy;
 
-    public MetroStationSetupPane() {
+    public MetroStationSetupPane(MetroFacade metro) {
         VBox root = new VBox();
         root.setPadding(new Insets(5, 5, 5, 5));
         RadioButton button1 = new RadioButton("excel");
