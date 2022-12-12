@@ -7,13 +7,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.MetroFacade;
 
+import java.util.ArrayList;
+
 public class MetroTicketView {
 	private Stage stage = new Stage();
-	private  MetroFacade metro;
 	private MetroTicketViewController metroTicketViewController;
 		
 	public MetroTicketView(MetroFacade metro){
-		this.metro = metro;
 		this.metroTicketViewController = new MetroTicketViewController(metro, this);
 		stage.setTitle("METROTICKET VIEW");
 		stage.initStyle(StageStyle.UTILITY);
@@ -24,5 +24,9 @@ public class MetroTicketView {
 		stage.setScene(scene);
 		stage.sizeToScene();			
 		stage.show();		
+	}
+
+	public void updateMetrocardIDList(ArrayList<Integer> metroCardIds){
+		metroTicketViewController.update();
 	}
 }

@@ -32,7 +32,8 @@ public class MetroFacade implements Subject {
         return db.getMetrocardList();
     }
     public ArrayList<Integer> getMetroCardDList(){
-        return null;
+        return db.getMetroCardIDList();
+
     }
 
     @Override
