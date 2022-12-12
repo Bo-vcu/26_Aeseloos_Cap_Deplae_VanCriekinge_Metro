@@ -9,9 +9,12 @@ import model.MetroFacade;
 
 public class MetroTicketView {
 	private Stage stage = new Stage();
+	private  MetroFacade metro;
 	private MetroTicketViewController metroTicketViewController;
 		
 	public MetroTicketView(MetroFacade metro){
+		this.metro = metro;
+		this.metroTicketViewController = new MetroTicketViewController(metro, this);
 		stage.setTitle("METROTICKET VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(5);

@@ -10,10 +10,11 @@ import java.util.Properties;
 
 public class MetroStationSetupPaneController implements Observer {
     private MetroStationSetupPane metroStationSetupPane;
-    private MetroFacade metroFacade;
+    private MetroFacade metro;
 
-    public MetroStationSetupPaneController() {
-
+    public MetroStationSetupPaneController(MetroFacade metro, MetroStationSetupPane metroStationSetupPane) {
+        this.metro = metro;
+        this.metroStationSetupPane = metroStationSetupPane;
     }
 
     public void save(LoadSaveStrategy loadSaveStrategy) throws IOException {

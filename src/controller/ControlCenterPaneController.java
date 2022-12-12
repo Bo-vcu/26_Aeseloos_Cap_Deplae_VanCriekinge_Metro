@@ -11,8 +11,9 @@ public class ControlCenterPaneController implements Observer {
     private ControlCenterPane controlCenterPane;
     private MetroFacade metro;
 
-    public ControlCenterPaneController(MetroFacade metro) {
+    public ControlCenterPaneController(MetroFacade metro , ControlCenterPane controlCenterPane) {
         this.metro = metro;
+        this.controlCenterPane = controlCenterPane;
     }
 
     public void openMetroStation() throws BiffException, IOException {
@@ -24,8 +25,5 @@ public class ControlCenterPaneController implements Observer {
 
     }
 
-    @Override
-    public void update() {
 
-    }
 }

@@ -24,7 +24,7 @@ public class ControlCenterPane extends GridPane {
     private ControlCenterPaneController controlCenterPaneController;
 
     public ControlCenterPane(MetroFacade metro) {
-        this.controlCenterPaneController = new ControlCenterPaneController(metro);
+        this.controlCenterPaneController = new ControlCenterPaneController(metro, this);
         this.metro = metro;
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
