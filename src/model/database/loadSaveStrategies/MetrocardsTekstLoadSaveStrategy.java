@@ -14,8 +14,9 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 public class MetrocardsTekstLoadSaveStrategy extends TekstLoadSaveTemplate implements LoadSaveStrategy{
+    String path = "src/bestanden/metrocards.txt";
 
-  public void load(String path, MetrocardDatabase db) throws IOException {
+  public void load(MetrocardDatabase db) throws IOException {
         File file = new File(path);
         Map added = super.load(file);
         db.metrocards.putAll(added);
@@ -34,7 +35,7 @@ public class MetrocardsTekstLoadSaveStrategy extends TekstLoadSaveTemplate imple
         return tokens[0];
     }
 
-    public void save(String path, MetrocardDatabase db) {
+    public void save(MetrocardDatabase db) {
         //Producten opslaan in een bestand
         try {
             FileWriter writer = new FileWriter(path);

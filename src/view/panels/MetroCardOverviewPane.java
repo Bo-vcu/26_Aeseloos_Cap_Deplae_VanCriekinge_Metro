@@ -5,28 +5,23 @@ import controller.MetroCardOverviewPaneController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import jxl.read.biff.BiffException;
 import model.Metrocard;
 import model.database.MetrocardDatabase;
-import model.database.loadSaveStrategies.MetroCardsExcelLoadSaveStrategy;
-import model.database.loadSaveStrategies.MetrocardsTekstLoadSaveStrategy;
-import model.database.utilities.TekstLoadSaveTemplate;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class MetroCardOverviewPane extends GridPane{
-	private MetroCardOverviewPaneController metroCardOverviewPaneController;
+	private MetroCardOverviewPaneController metroCardOverviewPaneController = new MetroCardOverviewPaneController();
 	private MetrocardDatabase metrocardDatabase = new MetrocardDatabase();
 	private TableView<Metrocard> table;
 	private ObservableList<Metrocard> metrocards;
@@ -44,8 +39,8 @@ public class MetroCardOverviewPane extends GridPane{
 		Label lblHeading = new Label("metrocard Inventory");
 		lblHeading.setFont(new Font("Arial", 20));
 
-		table= new TableView<>();
-		//refresh();
+		table = new TableView<>();
+		//updateMetroCardList();
 
 		TableColumn<Metrocard, Integer> colid = new TableColumn<>("ticket  nummer");
 		colid.setMinWidth(100);
@@ -59,7 +54,7 @@ public class MetroCardOverviewPane extends GridPane{
 		colbeschibaar.setMinWidth(150);
 		colbeschibaar.setCellValueFactory(new PropertyValueFactory<>("aantalBeschikbare"));
 
-		TableColumn<Metrocard, Integer> colverbruikt = new TableColumn<>("verbrukte ritten");
+		TableColumn<Metrocard, Integer> colverbruikt = new TableColumn<>("verbruikte ritten");
 		colverbruikt.setMinWidth(150);
 		colverbruikt.setCellValueFactory(new PropertyValueFactory<>("aantalVerbruikte"));
 
@@ -69,15 +64,10 @@ public class MetroCardOverviewPane extends GridPane{
 
 	}
 
-	public void refresh(){
-		try {
-			metrocardDatabase.setLoadSaveStrategy(new MetroCardsExcelLoadSaveStrategy());
-			metrocardDatabase.load("src/bestanden/metrocards.xls");
-		} catch (BiffException | IOException e) {
-			throw new RuntimeException(e);
-		}
-		metrocards = FXCollections.observableArrayList(metrocardDatabase.getMetrocardList());
-		table.setItems(metrocards);
+	public void updateMetroCardList(ArrayList<Metrocard> metrocards){
+		metrocards = (ArrayList<Metrocard>) FXCollections.observableArrayList(metrocards);
+		//System.out.println(metrocards);
+		table.setItems((ObservableList<Metrocard>) metrocards);
 		table.refresh();
 	}
 

@@ -9,6 +9,6 @@ import java.util.ArrayList;
 
 public interface LoadSaveStrategy {
 
-     void load(String path, MetrocardDatabase db) throws IOException, BiffException;
-     void save(String path, MetrocardDatabase db) throws IOException, WriteException, BiffException;
+     void load(MetrocardDatabase db) throws IOException, BiffException;
+     void save(MetrocardDatabase db) throws IOException, WriteException, BiffException;
 }

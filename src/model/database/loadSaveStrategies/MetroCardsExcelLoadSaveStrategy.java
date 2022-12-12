@@ -16,9 +16,10 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class MetroCardsExcelLoadSaveStrategy extends ExcelLoadSaveTemplate implements LoadSaveStrategy {
+    String path = "src/bestanden/metrocards.xls";
 
     @Override
-    public void load(String path, MetrocardDatabase db) {
+    public void load(MetrocardDatabase db) {
         File file = new File(path);
         try {
             Workbook workbook = Workbook.getWorkbook(file);
@@ -50,7 +51,7 @@ public class MetroCardsExcelLoadSaveStrategy extends ExcelLoadSaveTemplate imple
     }
 
     @Override
-    public void save(String path, MetrocardDatabase db) throws IOException, WriteException {
+    public void save(MetrocardDatabase db) throws IOException, WriteException {
         File file = new File(path);
         try {
             WritableWorkbook workbook = Workbook.createWorkbook(file);

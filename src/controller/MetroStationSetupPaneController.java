@@ -28,4 +28,9 @@ public class MetroStationSetupPaneController implements Observer {
         properties.setProperty("database", loadSaveStrategy.getClass().getSimpleName());
         properties.store(new FileOutputStream("src/bestanden/settings.properties"), null);
     }
+
+    @Override
+    public void update() {
+
+    }
 }

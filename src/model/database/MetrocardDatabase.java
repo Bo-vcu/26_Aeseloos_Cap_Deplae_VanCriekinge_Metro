@@ -28,18 +28,18 @@ public class MetrocardDatabase {
         this.loadSaveStrategy = loadSaveStrategy;
     }
 
-    public void load(String path) throws BiffException, IOException {
-       loadSaveStrategy.load(path, this);
+    public void load() throws BiffException, IOException {
+       loadSaveStrategy.load(this);
     }
 
-    public void save(String path) throws WriteException, IOException, BiffException {
-        loadSaveStrategy.save(path, this);
+    public void save() throws WriteException, IOException, BiffException {
+        loadSaveStrategy.save(this);
     }
     public ArrayList<Metrocard> getMetrocardList(){
         return new ArrayList<Metrocard>(metrocards.values());
     }
 
-  public static void main(String[] args) throws BiffException, IOException, WriteException {
+  /*public static void main(String[] args) throws BiffException, IOException, WriteException {
        Properties properties = new Properties();
       InputStream is = Files.newInputStream(Paths.get("src/bestanden/settings.properties"));
 
@@ -56,5 +56,5 @@ public class MetrocardDatabase {
 
 
         System.out.println(db.getMetrocardList());
-    }
+    }*/
 }

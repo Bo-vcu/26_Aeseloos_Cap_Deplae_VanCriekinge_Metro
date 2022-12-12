@@ -7,4 +7,9 @@ import view.MetroStationView;
 public class MetroTicketViewController implements Observer {
     private MetroStationView metroStationView;
     private MetroFacade metroFacade;
+
+    @Override
+    public void update() {
+
+    }
 }
