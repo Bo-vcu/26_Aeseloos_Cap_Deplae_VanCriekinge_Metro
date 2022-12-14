@@ -66,11 +66,12 @@ public class MetroTicketView extends GridPane {
 		selectMetroCardText.setX(0);
 		selectMetroCardText.setY(50);
 
-
-		newCard.getChildren().addAll(text, button);
-		root.getChildren().addAll(newCard);
 		selectCard.getChildren().addAll(selectMetroCardText, choiceBox);
-		root.getChildren().addAll(selectCard);
+		newCard.getChildren().addAll(text, button);
+
+		root.getChildren().addAll(newCard, selectCard);
+
+
 		Scene scene = new Scene(root, 650, 350);
 		stage.setScene(scene);
 		stage.sizeToScene();			
