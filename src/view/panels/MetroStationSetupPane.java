@@ -21,11 +21,9 @@ import java.io.IOException;
 
 public class MetroStationSetupPane extends GridPane {
     private MetroStationSetupPaneController metroStationSetupPaneController;
-    private MetroFacade metro;
 
 
     public MetroStationSetupPane(MetroFacade metro) {
-        this.metro = metro;
         this.metroStationSetupPaneController = new MetroStationSetupPaneController(metro, this);
         VBox root = new VBox();
         root.setPadding(new Insets(5, 5, 5, 5));

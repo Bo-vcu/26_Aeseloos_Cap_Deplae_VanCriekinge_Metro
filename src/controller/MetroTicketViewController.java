@@ -16,6 +16,6 @@ public class MetroTicketViewController implements Observer {
 
     @Override
     public void update() {
-
+        metro.getMetroCardDList();
     }
 }

@@ -64,9 +64,7 @@ public class MetroTicketView extends GridPane {
 		stage.show();		
 	}
 
-	public void updateIDList(ArrayList<Metrocard> metrocards){
-		this.metrocards = FXCollections.observableArrayList(metrocards);
-		table.setItems(this.metrocards);
-		table.refresh();
+	public void updateMetrocardIDList(ArrayList<Integer> metroCardIds){
+		metroTicketViewController.update();
 	}
 }

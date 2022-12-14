@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 
 public class MetroCardOverviewPane extends GridPane{
-	private  MetroFacade metro;
 	private MetroCardOverviewPaneController metroCardOverviewPaneController;
 	private TableView<Metrocard> table;
 	private ObservableList<Metrocard> metrocards;
@@ -30,7 +29,6 @@ public class MetroCardOverviewPane extends GridPane{
 	
 	public MetroCardOverviewPane(MetroFacade metro) {
 		this.metroCardOverviewPaneController = new MetroCardOverviewPaneController(metro, this);
-		this.metro = metro;
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);        
