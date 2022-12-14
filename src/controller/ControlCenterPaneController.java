@@ -9,18 +9,21 @@ import java.io.IOException;
 
 public class ControlCenterPaneController implements Observer {
     private ControlCenterPane controlCenterPane;
-    private MetroFacade metroFacade = new MetroFacade();
+    private MetroFacade metro;
 
-    public ControlCenterPaneController() {
-
+    public ControlCenterPaneController(MetroFacade metro , ControlCenterPane controlCenterPane) {
+        this.metro = metro;
+        this.controlCenterPane = controlCenterPane;
     }
 
     public void openMetroStation() throws BiffException, IOException {
-        metroFacade.openMetroStation();
+        metro.openMetroStation();
     }
 
     @Override
     public void update() {
 
     }
+
+
 }

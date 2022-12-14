@@ -39,6 +39,15 @@ public class MetrocardDatabase {
         return new ArrayList<Metrocard>(metrocards.values());
     }
 
+    public ArrayList<Integer> getMetroCardIDList(){
+        ArrayList<Integer> a = new ArrayList<>();
+       for(Metrocard metrocard : metrocards.values()){
+           a.add(Integer.parseInt(metrocard.toString().split(";")[0]));
+
+       }
+       return a;
+    }
+
   /*public static void main(String[] args) throws BiffException, IOException, WriteException {
        Properties properties = new Properties();
       InputStream is = Files.newInputStream(Paths.get("src/bestanden/settings.properties"));

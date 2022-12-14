@@ -1,5 +1,6 @@
 package controller;
 
+import model.MetroEventEnum;
 import model.MetroFacade;
 import model.Metrocard;
 import model.Observer;
@@ -9,10 +10,15 @@ import java.util.ArrayList;
 
 public class MetroCardOverviewPaneController implements Observer {
     private MetroCardOverviewPane metroCardOverviewPane;
-    private MetroFacade metroFacade = new MetroFacade();
+    private MetroFacade metro;
 
+    public MetroCardOverviewPaneController(MetroFacade metro, MetroCardOverviewPane metroCardOverviewPane){
+        this.metro = metro;
+        this.metroCardOverviewPane = metroCardOverviewPane;
+        this.metro.addObserver(MetroEventEnum.OPEN_METROSTATION, this);
+    }
     public void update(){
-        ArrayList<Metrocard> metrocards = metroFacade.getMetroCardList();
+        ArrayList<Metrocard> metrocards = this.metro.getMetroCardList();
         metroCardOverviewPane.updateMetroCardList(metrocards);
     }
 

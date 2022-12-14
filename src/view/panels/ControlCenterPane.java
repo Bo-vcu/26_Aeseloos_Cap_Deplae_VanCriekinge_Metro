@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import jxl.read.biff.BiffException;
+import model.MetroFacade;
 import model.Metrocard;
 import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.MetroCardsExcelLoadSaveStrategy;
@@ -19,9 +20,10 @@ import model.database.loadSaveStrategies.MetroCardsExcelLoadSaveStrategy;
 import java.io.IOException;
 
 public class ControlCenterPane extends GridPane {
-    private ControlCenterPaneController controlCenterPaneController = new ControlCenterPaneController();
+    private ControlCenterPaneController controlCenterPaneController;
 
-    public ControlCenterPane() {
+    public ControlCenterPane(MetroFacade metro) {
+        this.controlCenterPaneController = new ControlCenterPaneController(metro, this);
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);

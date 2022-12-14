@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import jxl.read.biff.BiffException;
+import model.MetroFacade;
 import model.Metrocard;
 import model.database.MetrocardDatabase;
 
@@ -21,13 +22,13 @@ import java.util.ArrayList;
 
 
 public class MetroCardOverviewPane extends GridPane{
-	private MetroCardOverviewPaneController metroCardOverviewPaneController = new MetroCardOverviewPaneController();
-	private MetrocardDatabase metrocardDatabase = new MetrocardDatabase();
+	private MetroCardOverviewPaneController metroCardOverviewPaneController;
 	private TableView<Metrocard> table;
 	private ObservableList<Metrocard> metrocards;
 	
 	
-	public MetroCardOverviewPane() {
+	public MetroCardOverviewPane(MetroFacade metro) {
+		this.metroCardOverviewPaneController = new MetroCardOverviewPaneController(metro, this);
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);        
@@ -40,7 +41,6 @@ public class MetroCardOverviewPane extends GridPane{
 		lblHeading.setFont(new Font("Arial", 20));
 
 		table = new TableView<>();
-		//updateMetroCardList();
 
 		TableColumn<Metrocard, Integer> colid = new TableColumn<>("ticket  nummer");
 		colid.setMinWidth(100);
@@ -65,9 +65,8 @@ public class MetroCardOverviewPane extends GridPane{
 	}
 
 	public void updateMetroCardList(ArrayList<Metrocard> metrocards){
-		metrocards = (ArrayList<Metrocard>) FXCollections.observableArrayList(metrocards);
-		//System.out.println(metrocards);
-		table.setItems((ObservableList<Metrocard>) metrocards);
+		this.metrocards = FXCollections.observableArrayList(metrocards);
+		table.setItems(this.metrocards);
 		table.refresh();
 	}
 
