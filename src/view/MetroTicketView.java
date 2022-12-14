@@ -39,29 +39,38 @@ public class MetroTicketView extends GridPane {
 		this.setVgap(5);
 		this.setHgap(5);
 
+
+		Group root = new Group();
+		Group newCard = new Group();
+		Group selectCard = new Group();
+
+		newCard.setLayoutX(30);
+		newCard.setLayoutY(20);
+
+		//sCard meer naar onder zetten
+		selectCard.setLayoutX(30);
+		selectCard.setLayoutY(100);
+
+
 		Button button = new Button("new metro card");
-		this.setPadding(new Insets(50, 50, 50, 50));
 		Text text = new Text();
 
 		text.setText("Metro card price is €15 - 2 free rides included");
-		text.setX(50);
+		text.setX(0);
 		text.setY(50);
 
 
 		Text selectMetroCardText = new Text();
 
 		selectMetroCardText.setText("select metro card");
-		selectMetroCardText.setX(50);
+		selectMetroCardText.setX(0);
 		selectMetroCardText.setY(50);
 
 
-
-
-
-		Group root = new Group(text);
-		this.add(button, 0, 0, 1, 1);
-
-		root.getChildren().addAll(button,choiceBox);
+		newCard.getChildren().addAll(text, button);
+		root.getChildren().addAll(newCard);
+		selectCard.getChildren().addAll(selectMetroCardText, choiceBox);
+		root.getChildren().addAll(selectCard);
 		Scene scene = new Scene(root, 650, 350);
 		stage.setScene(scene);
 		stage.sizeToScene();			
@@ -71,5 +80,6 @@ public class MetroTicketView extends GridPane {
 	public void updateMetrocardIDList(ArrayList<Integer> metroCardIds){
 		this.metroIDs = FXCollections.observableArrayList(metroCardIds);
 		choiceBox.setItems(metroIDs);
+		choiceBox.setValue(metroIDs.get(0));
 	}
 }

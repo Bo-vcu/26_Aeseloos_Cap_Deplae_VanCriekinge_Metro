@@ -45,7 +45,6 @@ public class MetrocardDatabase {
            a.add(Integer.parseInt(metrocard.toString().split(";")[0]));
 
        }
-        System.out.println(a);
        return a;
     }
 
