@@ -2,6 +2,7 @@ package view;
 
 import controller.MetroTicketViewController;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -24,6 +25,9 @@ public class MetroTicketView extends GridPane {
 	private Stage stage = new Stage();
 	private  MetroFacade metro;
 	private MetroTicketViewController metroTicketViewController;
+
+	private ChoiceBox choiceBox = new ChoiceBox();
+	private ObservableList<Integer> metroIDs;
 		
 	public MetroTicketView(MetroFacade metro){
 		this.metro = metro;
@@ -50,9 +54,9 @@ public class MetroTicketView extends GridPane {
 		selectMetroCardText.setX(50);
 		selectMetroCardText.setY(50);
 
-		ChoiceBox choiceBox = new ChoiceBox();
 
-		choiceBox.setItems(metroTicketViewController.update());
+
+
 
 		Group root = new Group(text);
 		this.add(button, 0, 0, 1, 1);
@@ -65,6 +69,7 @@ public class MetroTicketView extends GridPane {
 	}
 
 	public void updateMetrocardIDList(ArrayList<Integer> metroCardIds){
-		metroTicketViewController.update();
+		this.metroIDs = FXCollections.observableArrayList(metroCardIds);
+		choiceBox.setItems(metroIDs);
 	}
 }
