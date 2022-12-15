@@ -39,7 +39,11 @@ public class MetroCardsExcelLoadSaveStrategy extends ExcelLoadSaveTemplate imple
                 row++;
             }
             for (ArrayList<String> metrocard : info) {
-                db.metrocards.put(Integer.parseInt(metrocard.get(0)), new Metrocard(Integer.parseInt(metrocard.get(0)), metrocard.get(1), Integer.parseInt(metrocard.get(2)), Integer.parseInt(metrocard.get(3))));
+                try {
+                    db.metrocards.put(Integer.parseInt(metrocard.get(0)), new Metrocard(Integer.parseInt(metrocard.get(0)), metrocard.get(1), Integer.parseInt(metrocard.get(2)), Integer.parseInt(metrocard.get(3))));
+                }catch (ClassCastException e){
+                    System.out.println("kan niet veranderen nu" + e.getMessage());
+                }
             }
             System.out.println("Successfully loaded (" + db.metrocards.size() + ") cards from file.");
             workbook.close();

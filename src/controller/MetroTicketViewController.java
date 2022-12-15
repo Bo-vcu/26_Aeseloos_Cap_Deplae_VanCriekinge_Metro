@@ -25,12 +25,7 @@ public class MetroTicketViewController implements Observer {
     }
 
     public void addMetroCard() throws BiffException, IOException, WriteException {
-        String maand = String.valueOf(LocalDate.now().getMonthValue());
-        String jaar = String.valueOf(LocalDate.now().getYear());
-
-        Metrocard metrocard = new Metrocard(metro.getLastID(), maand +"#"+jaar,2,0);
-        metro.addMetroCard(metrocard);
-
+        metro.addMetroCard();
     }
 
     @Override

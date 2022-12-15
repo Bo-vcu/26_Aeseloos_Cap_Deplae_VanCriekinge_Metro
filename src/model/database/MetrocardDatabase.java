@@ -53,8 +53,13 @@ public class MetrocardDatabase {
     }
 
     public void addMetrocard(Metrocard metrocard) throws BiffException, WriteException, IOException {
-        metrocards.put(metrocard.getId(), metrocard);
-        save();
+        try {
+            metrocards.put(metrocard.getId(), metrocard);
+            load();
+            save();
+        }catch (ClassCastException e){
+            System.out.println("dit werkt ook niet" + e.getMessage());
+        }
 
     }
 

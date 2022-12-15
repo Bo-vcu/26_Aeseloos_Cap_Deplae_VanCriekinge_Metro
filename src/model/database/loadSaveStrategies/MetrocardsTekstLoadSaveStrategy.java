@@ -19,10 +19,12 @@ public class MetrocardsTekstLoadSaveStrategy extends TekstLoadSaveTemplate imple
   public void load(MetrocardDatabase db) throws IOException {
         File file = new File(path);
         Map added = super.load(file);
-        db.metrocards.putAll(added);
-
-        System.out.println("Successfully loaded (" + added.size() + ") cards from file.");
-
+        try{
+            db.metrocards.putAll(added);
+            System.out.println("Successfully loaded (" + added.size() + ") cards from file.");
+        }catch (ClassCastException e){
+            System.out.println("kan niet veranderen nu bitch" + e.getMessage());
+        }
     }
 
     protected Metrocard maakObject(String[] tokens) {

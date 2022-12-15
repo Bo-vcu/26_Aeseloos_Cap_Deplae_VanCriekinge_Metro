@@ -8,6 +8,7 @@ import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,8 +45,14 @@ public class MetroFacade implements Subject {
         return db.getLastID();
     }
 
-    public void addMetroCard(Metrocard metrocard) throws BiffException, IOException, WriteException {
+    public void addMetroCard() throws BiffException, IOException, WriteException {
+        String maand = String.valueOf(LocalDate.now().getMonthValue());
+        String jaar = String.valueOf(LocalDate.now().getYear());
+
+        Metrocard metrocard = new Metrocard(getLastID(), maand +"#"+jaar,2,0);
         db.addMetrocard(metrocard);
+        notifyObservers(MetroEventEnum.BUY_METROCARD);
+
     }
 
     @Override
