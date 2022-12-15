@@ -1,6 +1,7 @@
 package model;
 
 import jxl.read.biff.BiffException;
+import jxl.write.WriteException;
 import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
@@ -17,22 +18,34 @@ public class MetroFacade implements Subject {
             = new HashMap<>();
     LoadSaveStrategyFactory loadSaveStrategyFactory = new LoadSaveStrategyFactory();
     MetrocardDatabase db = new MetrocardDatabase();
+
     public MetroFacade(){
         for (MetroEventEnum e: MetroEventEnum.values()){
             observers.put(e, new ArrayList<Observer>());
         }
     }
+
     public void openMetroStation() throws BiffException, IOException {
         LoadSaveStrategy loadSaveStrategy = loadSaveStrategyFactory.createLoadSaveStrategy();
         db.setLoadSaveStrategy(loadSaveStrategy);
         db.load();
         notifyObservers(MetroEventEnum.OPEN_METROSTATION);
     }
+
     public ArrayList<Metrocard> getMetroCardList(){
         return db.getMetrocardList();
     }
+
     public ArrayList<Integer> getMetroCardDList(){
         return db.getMetroCardIDList();
+    }
+
+    public int getLastID(){
+        return db.getLastID();
+    }
+
+    public void addMetroCard(Metrocard metrocard) throws BiffException, IOException, WriteException {
+        db.addMetrocard(metrocard);
     }
 
     @Override

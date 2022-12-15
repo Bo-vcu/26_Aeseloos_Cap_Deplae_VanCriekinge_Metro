@@ -14,11 +14,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import jxl.read.biff.BiffException;
+import jxl.write.WriteException;
 import model.MetroFacade;
 import javafx.scene.control.Button;
 import model.Metrocard;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MetroTicketView extends GridPane {
@@ -53,6 +56,20 @@ public class MetroTicketView extends GridPane {
 
 
 		Button button = new Button("new metro card");
+
+		button.setOnAction(event -> {
+			try {
+				metroTicketViewController.addMetroCard();
+			} catch (BiffException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (WriteException e) {
+				e.printStackTrace();
+			}
+		});
+
+
 		Text text = new Text();
 
 		text.setText("Metro card price is €15 - 2 free rides included");

@@ -48,6 +48,16 @@ public class MetrocardDatabase {
        return a;
     }
 
+    public int getLastID(){
+        return metrocards.size()+1;
+    }
+
+    public void addMetrocard(Metrocard metrocard) throws BiffException, WriteException, IOException {
+        metrocards.put(metrocard.getId(), metrocard);
+        save();
+
+    }
+
   /*public static void main(String[] args) throws BiffException, IOException, WriteException {
        Properties properties = new Properties();
       InputStream is = Files.newInputStream(Paths.get("src/bestanden/settings.properties"));
