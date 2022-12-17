@@ -53,17 +53,12 @@ public class MetrocardDatabase {
     }
 
     public void addMetrocard(Metrocard metrocard) throws BiffException, WriteException, IOException {
-        try {
             metrocards.put(metrocard.getId(), metrocard);
             load();
             save();
-        }catch (ClassCastException e){
-            System.out.println("dit werkt ook niet" + e.getMessage());
-        }
-
     }
 
-  /*public static void main(String[] args) throws BiffException, IOException, WriteException {
+  public static void main(String[] args) throws BiffException, IOException, WriteException {
        Properties properties = new Properties();
       InputStream is = Files.newInputStream(Paths.get("src/bestanden/settings.properties"));
 
@@ -73,12 +68,14 @@ public class MetrocardDatabase {
         MetrocardDatabase db = new MetrocardDatabase();
 
 
-        db.setLoadSaveStrategy(new MetroCardsExcelLoadSaveStrategy());
-        System.out.println("src/bestanden/metrocards."+dbType);
-        db.load("src/bestanden/metrocards."+dbType);
-        //db.save("src/bestanden/metrocards."+dbType);
+        db.setLoadSaveStrategy(new MetrocardsTekstLoadSaveStrategy());
+        db.load();
+
+        db.addMetrocard(new Metrocard(6,"3#2022",2,0));
+
+        db.save();
 
 
         System.out.println(db.getMetrocardList());
-    }*/
+    }
 }

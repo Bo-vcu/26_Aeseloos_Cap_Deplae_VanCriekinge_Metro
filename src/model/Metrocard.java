@@ -22,8 +22,9 @@ public class Metrocard {
     }
 
     public String getMaand_jaar() {
-        String[] parts = maand_jaar.split("#");
-        return parts[0]+"/"+parts[1];
+        //String[] parts = maand_jaar.split("#");
+        //return parts[0]+"/"+parts[1];
+        return maand_jaar;
     }
 
     public int getAantalBeschikbare() {
