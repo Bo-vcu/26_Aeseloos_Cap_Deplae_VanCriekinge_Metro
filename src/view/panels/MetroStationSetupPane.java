@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.MetroFacade;
 import model.database.MetrocardDatabase;
@@ -27,22 +28,36 @@ public class MetroStationSetupPane extends GridPane {
         this.metroStationSetupPaneController = new MetroStationSetupPaneController(metro, this);
         VBox root = new VBox();
         root.setPadding(new Insets(5, 5, 5, 5));
+
+
         RadioButton button1 = new RadioButton("excel");
         button1.setUserData(new MetroCardsExcelLoadSaveStrategy());
+
         RadioButton button2 = new RadioButton("txt");
         button2.setUserData(new MetrocardsTekstLoadSaveStrategy());
+
         Button saveButton = new Button("save");
+
         this.add(saveButton, 50, 50, 1, 1);
+
         ToggleGroup group = new ToggleGroup();
         button1.setToggleGroup(group);
         button2.setToggleGroup(group);
 
         button1.setSelected(true);
 
+
+
         root.getChildren().addAll(button1,button2);
         saveButton.setOnAction(event -> {
             try {
-                metroStationSetupPaneController.save((LoadSaveStrategy) group.getSelectedToggle().getUserData());
+                if (!metroStationSetupPaneController.getMetroOpenStatus()){
+                    metroStationSetupPaneController.save((LoadSaveStrategy) group.getSelectedToggle().getUserData());
+                }else{
+                    Text text = new Text("Metro Station is al open!");
+                    root.getChildren().addAll(text);
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

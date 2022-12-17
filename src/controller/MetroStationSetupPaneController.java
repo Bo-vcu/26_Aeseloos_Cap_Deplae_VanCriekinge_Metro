@@ -30,6 +30,12 @@ public class MetroStationSetupPaneController implements Observer {
         properties.store(new FileOutputStream("src/bestanden/settings.properties"), null);
     }
 
+    public boolean getMetroOpenStatus(){
+        return metro.getMetroOpenStatus();
+    }
+
+
+
     @Override
     public void update() {
 

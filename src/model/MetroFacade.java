@@ -15,8 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 public class MetroFacade implements Subject {
-    private Map<MetroEventEnum, List<Observer>> observers
-            = new HashMap<>();
+
+    private boolean metroOpen = false;
+
+    private Map<MetroEventEnum, List<Observer>> observers = new HashMap<>();
+
     LoadSaveStrategyFactory loadSaveStrategyFactory = new LoadSaveStrategyFactory();
     MetrocardDatabase db = new MetrocardDatabase();
 
@@ -24,6 +27,14 @@ public class MetroFacade implements Subject {
         for (MetroEventEnum e: MetroEventEnum.values()){
             observers.put(e, new ArrayList<Observer>());
         }
+    }
+
+    public void setMetroOpenOpTrue() {
+        this.metroOpen = true;
+    }
+
+    public boolean getMetroOpenStatus(){
+        return metroOpen;
     }
 
     public void openMetroStation() throws BiffException, IOException {

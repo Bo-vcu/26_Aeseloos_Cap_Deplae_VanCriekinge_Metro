@@ -20,6 +20,10 @@ public class ControlCenterPaneController implements Observer {
         metro.openMetroStation();
     }
 
+    public void setMetroOpenOpTrue() {
+        metro.setMetroOpenOpTrue();
+    }
+
     @Override
     public void update() {
 
