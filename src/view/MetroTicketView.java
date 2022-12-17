@@ -7,9 +7,11 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -17,7 +19,6 @@ import javafx.stage.StageStyle;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import model.MetroFacade;
-import javafx.scene.control.Button;
 import model.Metrocard;
 
 import java.awt.*;
@@ -46,6 +47,7 @@ public class MetroTicketView extends GridPane {
 		Group root = new Group();
 		Group newCard = new Group();
 		Group selectCard = new Group();
+		Group request = new Group();
 
 		newCard.setLayoutX(30);
 		newCard.setLayoutY(20);
@@ -53,7 +55,6 @@ public class MetroTicketView extends GridPane {
 		//sCard meer naar onder zetten
 		selectCard.setLayoutX(30);
 		selectCard.setLayoutY(100);
-
 
 		Button button = new Button("new metro card");
 
@@ -70,26 +71,69 @@ public class MetroTicketView extends GridPane {
 		});
 
 
-		Text text = new Text();
-
-		text.setText("Metro card price is €15 - 2 free rides included");
+		Text text = new Text("Metro card price is €15 - 2 free rides included");
 		text.setX(0);
 		text.setY(50);
 
 
-		Text selectMetroCardText = new Text();
+		Text selectMetroCardText = new Text("select metro card");
+		selectMetroCardText.setX(60);
+		selectMetroCardText.setY(20);
 
-		selectMetroCardText.setText("select metro card");
-		selectMetroCardText.setX(0);
-		selectMetroCardText.setY(50);
+		Text numberOfRides = new Text("Number of rides");
+		numberOfRides.setX(0);
+		numberOfRides.setY(170);
+		TextField numberOfRidesTextField = new TextField();
+		numberOfRidesTextField.setLayoutX(150);
+		numberOfRidesTextField.setLayoutY(150);
+		CheckBox checkBox1 = new CheckBox("higher education student?");
+		checkBox1.setLayoutX(0);
+		checkBox1.setLayoutY(200);
+		ToggleGroup toggleGroup = new ToggleGroup();
+		RadioButton button1 = new RadioButton("younger than 26 years");
+		button1.setLayoutX(0);
+		button1.setLayoutY(250);
+		RadioButton button2 = new RadioButton("older than 64 years");
+		button2.setLayoutX(200);
+		button2.setLayoutY(250);
+		RadioButton button3 = new RadioButton("between 26 and 64 years");
+		button3.setLayoutX(400);
+		button3.setLayoutY(250);
+		button1.setToggleGroup(toggleGroup);
+		button2.setToggleGroup(toggleGroup);
+		button3.setToggleGroup(toggleGroup);
+
+
+		Button addExtraRides = new Button("add extra rides to metro card");
+		addExtraRides.setLayoutX(30);
+		addExtraRides.setLayoutY(320);
+		addExtraRides.setOnAction(event -> {
+			metroTicketViewController.calculatePrice(numberOfRidesTextField.getText(), checkBox1.isSelected(), String.valueOf(toggleGroup.getSelectedToggle().getUserData()));
+		});
+		Text totalPriceText = new Text("Total price:");
+		totalPriceText.setLayoutX(30);
+		totalPriceText.setLayoutY(380);
+		Text totalPriceValue = new Text("€7,40");
+		totalPriceValue.setLayoutX(120);
+		totalPriceValue.setLayoutY(380);
+		Text explanationText = new Text("Vlam");
+		explanationText.setLayoutX(30);
+		explanationText.setLayoutY(420);
+		Button confirmRequest = new Button("Confirm request");
+		confirmRequest.setLayoutX(30);
+		confirmRequest.setLayoutY(450);
+		Button cancelRequest = new Button("Cancel request");
+		cancelRequest.setLayoutX(180);
+		cancelRequest.setLayoutY(450);
 
 		selectCard.getChildren().addAll(selectMetroCardText, choiceBox);
-		newCard.getChildren().addAll(text, button);
+		newCard.getChildren().addAll(text, button, numberOfRides, numberOfRidesTextField, checkBox1, button1, button2, button3);
+		request.getChildren().addAll(addExtraRides, totalPriceText, totalPriceValue, explanationText, confirmRequest, cancelRequest);
 
-		root.getChildren().addAll(newCard, selectCard);
+		root.getChildren().addAll(newCard, selectCard, request);
 
 
-		Scene scene = new Scene(root, 650, 350);
+		Scene scene = new Scene(root, 650, 550);
 		stage.setScene(scene);
 		stage.sizeToScene();			
 		stage.show();		

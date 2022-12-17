@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.control.Toggle;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import model.MetroEventEnum;
@@ -32,5 +33,9 @@ public class MetroTicketViewController implements Observer {
     public void update() {
         ArrayList<Integer> ids = metro.getMetroCardDList();
         metroTicketView.updateMetrocardIDList(ids);
+    }
+
+    public void calculatePrice(String text, boolean student, String userData) {
+        
     }
 }

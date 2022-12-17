@@ -29,7 +29,7 @@ public class MetroStationView {
 		stage.setTitle("METRO STATION VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(5);
-		stage.setY(390);
+		stage.setY(600);
 		Group root = new Group();
 		root.setLayoutY(50);
 
