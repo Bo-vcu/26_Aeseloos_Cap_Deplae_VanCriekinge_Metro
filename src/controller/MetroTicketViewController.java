@@ -35,7 +35,7 @@ public class MetroTicketViewController implements Observer {
         metroTicketView.updateMetrocardIDList(ids);
     }
 
-    public void calculatePrice(String text, boolean student, String userData) {
+    public void calculatePrice(Integer aantal, boolean student, String ageGap) {
         
     }
 }

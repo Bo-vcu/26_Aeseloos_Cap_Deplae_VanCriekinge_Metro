@@ -26,28 +26,40 @@ public class MetroStationSetupPane extends GridPane {
     public MetroStationSetupPane(MetroFacade metro) {
         this.metroStationSetupPaneController = new MetroStationSetupPaneController(metro, this);
         VBox root = new VBox();
+
         root.setPadding(new Insets(5, 5, 5, 5));
+
         RadioButton button1 = new RadioButton("excel");
         button1.setUserData(new MetroCardsExcelLoadSaveStrategy());
         RadioButton button2 = new RadioButton("txt");
         button2.setUserData(new MetrocardsTekstLoadSaveStrategy());
-        Button saveButton = new Button("save");
-        this.add(saveButton, 50, 50, 1, 1);
         ToggleGroup group = new ToggleGroup();
         button1.setToggleGroup(group);
+        if (metroStationSetupPaneController.read("database").contains("MetroCardsExcelLoadSaveStrategy")) button1.setSelected(true);
         button2.setToggleGroup(group);
+        if (metroStationSetupPaneController.read("database").contains("MetroCardsTekstLoadSaveStrategy")) button2.setSelected(true);
 
-        button1.setSelected(true);
 
-        root.getChildren().addAll(button1,button2);
+        CheckBox age64PlusDiscount = new CheckBox("64+ age discount");
+        if (metroStationSetupPaneController.read("discount").contains("age64PlusDiscount")) age64PlusDiscount.setSelected(true);
+        CheckBox christmasLeaveDiscount = new CheckBox("Christmas leave discount");
+        if (metroStationSetupPaneController.read("discount").contains("christmasLeaveDiscount")) christmasLeaveDiscount.setSelected(true);
+        CheckBox studentDiscount = new CheckBox("Student discount");
+        if (metroStationSetupPaneController.read("discount").contains("studentDiscount")) studentDiscount.setSelected(true);
+        CheckBox frequentTravellerDiscount = new CheckBox("Frequent traveller discount");
+        if (metroStationSetupPaneController.read("discount").contains("frequentTravellerDiscount")) frequentTravellerDiscount.setSelected(true);
+
+        Button saveButton = new Button("save");
         saveButton.setOnAction(event -> {
             try {
                 metroStationSetupPaneController.save((LoadSaveStrategy) group.getSelectedToggle().getUserData());
+                metroStationSetupPaneController.saveDiscount(age64PlusDiscount.isSelected(), christmasLeaveDiscount.isSelected(), studentDiscount.isSelected(), frequentTravellerDiscount.isSelected());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
 
+        root.getChildren().addAll(button1, button2, age64PlusDiscount, christmasLeaveDiscount, studentDiscount, frequentTravellerDiscount, saveButton);
         this.add(root,1,1);
     }
 

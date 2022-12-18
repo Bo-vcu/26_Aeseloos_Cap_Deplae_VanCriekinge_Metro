@@ -108,7 +108,7 @@ public class MetroTicketView extends GridPane {
 		addExtraRides.setLayoutX(30);
 		addExtraRides.setLayoutY(320);
 		addExtraRides.setOnAction(event -> {
-			metroTicketViewController.calculatePrice(numberOfRidesTextField.getText(), checkBox1.isSelected(), String.valueOf(toggleGroup.getSelectedToggle().getUserData()));
+			metroTicketViewController.calculatePrice(Integer.parseInt(numberOfRidesTextField.getText()), checkBox1.isSelected(), String.valueOf(toggleGroup.getSelectedToggle().getUserData()));
 		});
 		Text totalPriceText = new Text("Total price:");
 		totalPriceText.setLayoutX(30);

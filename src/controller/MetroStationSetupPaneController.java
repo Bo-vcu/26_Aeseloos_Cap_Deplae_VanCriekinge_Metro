@@ -30,6 +30,35 @@ public class MetroStationSetupPaneController implements Observer {
         properties.store(new FileOutputStream("src/bestanden/settings.properties"), null);
     }
 
+    public void saveDiscount(boolean age64PlusDiscount, boolean christmasLeaveDiscount, boolean studentDiscount, boolean frequentTravellerDiscount) throws IOException {
+        Properties properties = new Properties();
+        InputStream is = null;
+        try {
+            is = new FileInputStream("src/bestanden/settings.properties");
+            properties.load(is);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        properties.setProperty("discount", "");
+        if (age64PlusDiscount) properties.setProperty("discount", properties.getProperty("discount") + (properties.getProperty("discount").isEmpty()? "": ",") + "age64PlusDiscount");
+        if (christmasLeaveDiscount) properties.setProperty("discount", properties.getProperty("discount") + (properties.getProperty("discount").isEmpty()? "": ",") + "christmasLeaveDiscount");
+        if (studentDiscount) properties.setProperty("discount", properties.getProperty("discount") + (properties.getProperty("discount").isEmpty()? "": ",") + "studentDiscount");
+        if (frequentTravellerDiscount) properties.setProperty("discount", properties.getProperty("discount") + (properties.getProperty("discount").isEmpty()? "": ",") + "frequentTravellerDiscount");
+        properties.store(new FileOutputStream("src/bestanden/settings.properties"), null);
+    }
+
+    public String read(String keyword) {
+        Properties properties = new Properties();
+        InputStream is = null;
+        try {
+            is = new FileInputStream("src/bestanden/settings.properties");
+            properties.load(is);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return properties.getProperty(keyword);
+    }
+
     @Override
     public void update() {
 

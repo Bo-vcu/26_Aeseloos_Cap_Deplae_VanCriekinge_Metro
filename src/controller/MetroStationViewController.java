@@ -29,7 +29,7 @@ public class MetroStationViewController implements Observer {
     public String scanMetrocard(Integer checkboxValue) {
         Metrocard metrocard = metro.getMetroCardList().get(checkboxValue - 1);
         if (metrocard.getAantalBeschikbare() != 0) {
-            String[] datum = metrocard.getMaand_jaar().split("/");
+            String[] datum = metrocard.getMaand_jaar().split("");
             LocalDate localDate = LocalDate.of(Integer.parseInt(datum[1]) + 1,Integer.parseInt(datum[0]) + 1, 1);
             if (LocalDate.now().isBefore(localDate))
                 return "Card " + checkboxValue + " is scanned";
