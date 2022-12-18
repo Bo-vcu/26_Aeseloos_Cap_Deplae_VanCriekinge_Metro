@@ -39,7 +39,6 @@ public class MetroStationSetupPane extends GridPane {
         button2.setToggleGroup(group);
         if (metroStationSetupPaneController.read("database").contains("MetroCardsTekstLoadSaveStrategy")) button2.setSelected(true);
 
-
         CheckBox age64PlusDiscount = new CheckBox("64+ age discount");
         if (metroStationSetupPaneController.read("discount").contains("age64PlusDiscount")) age64PlusDiscount.setSelected(true);
         CheckBox christmasLeaveDiscount = new CheckBox("Christmas leave discount");
