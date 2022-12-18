@@ -61,6 +61,5 @@ public class MetroStationSetupPaneController implements Observer {
 
     @Override
     public void update() {
-
     }
 }

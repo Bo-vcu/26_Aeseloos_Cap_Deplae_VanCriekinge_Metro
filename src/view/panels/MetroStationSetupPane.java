@@ -26,7 +26,6 @@ public class MetroStationSetupPane extends GridPane {
     public MetroStationSetupPane(MetroFacade metro) {
         this.metroStationSetupPaneController = new MetroStationSetupPaneController(metro, this);
         VBox root = new VBox();
-
         root.setPadding(new Insets(5, 5, 5, 5));
 
         RadioButton button1 = new RadioButton("excel");
