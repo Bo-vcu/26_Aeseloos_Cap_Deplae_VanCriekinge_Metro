@@ -61,6 +61,15 @@ public class MetrocardDatabase {
         save();
     }
 
+    public Metrocard getMetroCardByID(int id){
+        for (Metrocard m: getMetrocardList()){
+            if (m.getId() == id){
+                return m;
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) throws BiffException, IOException, WriteException {
         Properties properties = new Properties();
         InputStream is = Files.newInputStream(Paths.get("src/bestanden/settings.properties"));

@@ -1,17 +1,17 @@
 package model.TicketPriceDecorator;
 
 public class ChristmasLeaveDiscount extends TicketPriceDiscountDecorator{
-    public ChristmasLeaveDiscount(boolean is24Min, boolean is64Plus, boolean isStudent) {
-        super(is24Min, is64Plus, isStudent);
+    public ChristmasLeaveDiscount(TicketPrice ticketPrice) {
+        this.ticketPrice=ticketPrice;
     }
 
     @Override
     public double getPrice() {
-        return 0;
+        return ticketPrice.getPrice()-0.10;
     }
 
     @Override
     public String getPriceText() {
-        return null;
+        return String.valueOf(ticketPrice.getPrice()-0.10);
     }
 }

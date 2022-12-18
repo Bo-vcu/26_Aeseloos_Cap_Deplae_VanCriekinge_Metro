@@ -5,12 +5,6 @@ public abstract class TicketPrice {
     //private String attribute;
 
 
-    public TicketPrice(boolean is24Min, boolean is64Plus, boolean isStudent) {
-        this.is24Min = is24Min;
-        this.is64Plus = is64Plus;
-        this.isStudent = isStudent;
-    }
-
     public boolean isIs24Min() {
         return is24Min;
     }

@@ -1,32 +1,39 @@
 package controller;
 
-import javafx.scene.control.Toggle;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import model.MetroEventEnum;
 import model.MetroFacade;
 import model.Metrocard;
 import model.Observer;
-import view.MetroStationView;
+import model.TicketPriceDecorator.TicketPriceDiscountEnum;
 import view.MetroTicketView;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class MetroTicketViewController implements Observer {
     private MetroTicketView metroTicketView;
     private MetroFacade metro;
+    ArrayList<String> metroDiscountList;
 
     public MetroTicketViewController(MetroFacade metro, MetroTicketView metroTicketView){
         this.metro = metro;
         this.metroTicketView = metroTicketView;
         this.metro.addObserver(MetroEventEnum.OPEN_METROSTATION, this);
         this.metro.addObserver(MetroEventEnum.BUY_METROCARD, this);
+//        this.metro.addObserver(TicketPriceDiscountEnum.AGE64PLUSDISCOUNT, this);
+//        this.metro.addObserver(TicketPriceDiscountEnum.CHRISTMASLEAVEDISCOUNT, this);
+//        this.metro.addObserver(TicketPriceDiscountEnum.STUDENTDISCOUNT, this);
+//        this.metro.addObserver(TicketPriceDiscountEnum.FREQUENTTRAVELERDISCOUNT, this);
     }
 
     public void addMetroCard() throws BiffException, IOException, WriteException {
-        metro.addMetroCard();
+        metro.buyNewMetroCard();
+    }
+
+    public ArrayList<String> getMetroTicketsDiscountList(){
+        return metroDiscountList;
     }
 
     @Override
@@ -35,7 +42,14 @@ public class MetroTicketViewController implements Observer {
         metroTicketView.updateMetrocardIDList(ids);
     }
 
+<<<<<<< Updated upstream
     public void calculatePrice(Integer aantal, boolean student, String ageGap) {
         
+=======
+    public double calculatePrice(boolean is24Min, boolean is64Plus, boolean isStudent, int id) {
+        double price = metro.getPrice(is24Min, is64Plus, isStudent, id);
+        this.metroDiscountList = metro.getMetroTicketsDiscountList();
+        return price;
+>>>>>>> Stashed changes
     }
 }

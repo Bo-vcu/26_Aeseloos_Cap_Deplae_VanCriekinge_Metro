@@ -55,11 +55,29 @@ public class MetroStationSetupPane extends GridPane {
         frequentTravellerDiscount.setPadding(new Insets(5, 0, 5, 0));
         if (metroStationSetupPaneController.read("discount").contains("frequentTravellerDiscount")) frequentTravellerDiscount.setSelected(true);
 
+<<<<<<< Updated upstream
         Button saveButton = new Button("save");
         saveButton.setOnAction(event -> {
             try {
                 metroStationSetupPaneController.save((LoadSaveStrategy) group.getSelectedToggle().getUserData());
                 metroStationSetupPaneController.saveDiscount(age64PlusDiscount.isSelected(), christmasLeaveDiscount.isSelected(), studentDiscount.isSelected(), frequentTravellerDiscount.isSelected());
+=======
+        button1.setSelected(true);
+
+
+
+        root.getChildren().addAll(button1,button2);
+        Text text = new Text("");
+        root.getChildren().addAll(text);
+        saveButton.setOnAction(event -> {
+            try {
+                if (!metroStationSetupPaneController.getMetroOpenStatus()){
+                    metroStationSetupPaneController.save((LoadSaveStrategy) group.getSelectedToggle().getUserData());
+                }else{
+                    text.setText("Metro Station is already open!");
+                }
+
+>>>>>>> Stashed changes
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -20,9 +20,13 @@ import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import model.MetroFacade;
 import model.Metrocard;
+import model.TicketPriceDecorator.TicketPrice;
 
 import java.awt.*;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MetroTicketView extends GridPane {
@@ -90,13 +94,13 @@ public class MetroTicketView extends GridPane {
 		checkBox1.setLayoutX(0);
 		checkBox1.setLayoutY(200);
 		ToggleGroup toggleGroup = new ToggleGroup();
-		RadioButton button1 = new RadioButton("younger than 26 years");
+		RadioButton button1 = new RadioButton("younger than 24 years");
 		button1.setLayoutX(0);
 		button1.setLayoutY(250);
 		RadioButton button2 = new RadioButton("older than 64 years");
 		button2.setLayoutX(200);
 		button2.setLayoutY(250);
-		RadioButton button3 = new RadioButton("between 26 and 64 years");
+		RadioButton button3 = new RadioButton("between 24 and 64 years");
 		button3.setLayoutX(400);
 		button3.setLayoutY(250);
 		button1.setToggleGroup(toggleGroup);
@@ -107,16 +111,46 @@ public class MetroTicketView extends GridPane {
 		Button addExtraRides = new Button("add extra rides to metro card");
 		addExtraRides.setLayoutX(30);
 		addExtraRides.setLayoutY(320);
-		addExtraRides.setOnAction(event -> {
-			metroTicketViewController.calculatePrice(Integer.parseInt(numberOfRidesTextField.getText()), checkBox1.isSelected(), String.valueOf(toggleGroup.getSelectedToggle().getUserData()));
-		});
+		Text explanationText = new Text();
 		Text totalPriceText = new Text("Total price:");
+		Text totalPriceValue = new Text();
+		addExtraRides.setOnAction(event -> {
+<<<<<<< Updated upstream
+			metroTicketViewController.calculatePrice(Integer.parseInt(numberOfRidesTextField.getText()), checkBox1.isSelected(), String.valueOf(toggleGroup.getSelectedToggle().getUserData()));
+=======
+			int ritten = Integer.parseInt(numberOfRidesTextField.getText());
+			//boolean is24Min = false;
+			boolean is64Plus = false;
+			boolean isStudent = false;
+			boolean is24Min = false;
+			String exptxt = "Basic price of ride is €2,10 ";
+			if (toggleGroup.getSelectedToggle() == button2){
+				is64Plus = true;
+			}
+			if (checkBox1.isSelected()){
+				isStudent = true;
+			}
+			if (toggleGroup.getSelectedToggle() == button2){
+				is24Min = true;
+			}
+			//TO DO ervoor zorgen dat toegepaste kortingen in tekstje komen te staan
+//			for (String s: metroTicketViewController.getMetroTicketsDiscountList()){
+//				exptxt += s;
+//			}
+
+			explanationText.setText(exptxt);
+			int id = (int) choiceBox.getValue();
+			double price = metroTicketViewController.calculatePrice(is24Min, is64Plus, isStudent, id)*ritten;
+			totalPriceValue.setText("€" + String.valueOf(round(price, 2)));
+>>>>>>> Stashed changes
+		});
+
 		totalPriceText.setLayoutX(30);
 		totalPriceText.setLayoutY(380);
-		Text totalPriceValue = new Text("€7,40");
+
 		totalPriceValue.setLayoutX(120);
 		totalPriceValue.setLayoutY(380);
-		Text explanationText = new Text("Vlam");
+
 		explanationText.setLayoutX(30);
 		explanationText.setLayoutY(420);
 		Button confirmRequest = new Button("Confirm request");
@@ -143,5 +177,13 @@ public class MetroTicketView extends GridPane {
 		this.metroIDs = FXCollections.observableArrayList(metroCardIds);
 		choiceBox.setItems(metroIDs);
 		choiceBox.setValue(metroIDs.get(0));
+	}
+
+	public static double round(double value, int places) {
+		if (places < 0) throw new IllegalArgumentException();
+
+		BigDecimal bd = BigDecimal.valueOf(value);
+		bd = bd.setScale(places, RoundingMode.HALF_UP);
+		return bd.doubleValue();
 	}
 }

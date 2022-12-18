@@ -2,6 +2,8 @@ package model;
 
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
+import model.TicketPriceDecorator.TicketPriceDiscountEnum;
+import model.TicketPriceDecorator.TicketPriceFactory;
 import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
@@ -18,9 +20,13 @@ public class MetroFacade implements Subject {
 
     private boolean metroOpen = false;
 
+    ArrayList<String> metroDiscountList = new ArrayList<>();
+
     private Map<MetroEventEnum, List<Observer>> observers = new HashMap<>();
 
+
     LoadSaveStrategyFactory loadSaveStrategyFactory = new LoadSaveStrategyFactory();
+    TicketPriceFactory ticketPriceFactory = new TicketPriceFactory();
     MetrocardDatabase db = new MetrocardDatabase();
 
     public MetroFacade(){
@@ -56,7 +62,7 @@ public class MetroFacade implements Subject {
         return db.getLastID();
     }
 
-    public void addMetroCard() throws BiffException, IOException, WriteException {
+    public void buyNewMetroCard() throws BiffException, IOException, WriteException {
         String maand = String.valueOf(LocalDate.now().getMonthValue());
         String jaar = String.valueOf(LocalDate.now().getYear());
 
@@ -66,15 +72,46 @@ public class MetroFacade implements Subject {
 
     }
 
+    public double getPrice(boolean is24Min, boolean is64Plus, boolean isStudent, int id){
+        if (db.getMetroCardByID(id).getAantalVerbruikte() > 50){
+            metroDiscountList.add(" -€0,20 FREQUENTTRAVELERDISCOUNT ");
+            //notifyObservers(TicketPriceDiscountEnum.FREQUENTTRAVELERDISCOUNT);
+        }
+        if (is64Plus){
+            metroDiscountList.add(" -€0.15 AGE64PLUSDISCOUNT ");
+            //notifyObservers(TicketPriceDiscountEnum.AGE64PLUSDISCOUNT);
+        }
+        if (isStudent){
+            metroDiscountList.add(" -€0.25 STUDENTDISCOUNT ");
+            //notifyObservers(TicketPriceDiscountEnum.STUDENTDISCOUNT);
+        }
+        return ticketPriceFactory.createTicketPrice(is24Min, is64Plus, isStudent, db.getMetroCardByID(id));
+    }
+
+    public void buyMetroCardTickets(Metrocard metrocard){
+
+    }
+
+    public ArrayList<String> getMetroTicketsDiscountList(){
+        return metroDiscountList;
+    }
+
+    public void scanMetroGate(int metroCardID, int gateId){
+
+    }
+
     @Override
     public void addObserver(MetroEventEnum event, Observer o) {
         observers.get(event).add(o);
     }
 
+
     @Override
     public void removeObserver(Observer o) {
         observers.remove(o);
     }
+
+
 
     @Override
     public void notifyObservers(MetroEventEnum event) {
@@ -82,4 +119,7 @@ public class MetroFacade implements Subject {
             obs.update();
         }
     }
+
+
+
 }

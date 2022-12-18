@@ -43,11 +43,11 @@ public class MetroCardOverviewPane extends GridPane{
 		table = new TableView<>();
 
 		TableColumn<Metrocard, Integer> colid = new TableColumn<>("ticket  nummer");
-		colid.setMinWidth(100);
+		colid.setMinWidth(150);
 		colid.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-		TableColumn<Metrocard, String> colYear = new TableColumn<>("vervaldatum");
-		colYear.setMinWidth(100);
+		TableColumn<Metrocard, String> colYear = new TableColumn<>("aankoopdatum");
+		colYear.setMinWidth(150);
 		colYear.setCellValueFactory(new PropertyValueFactory<>("maand_jaar"));
 
 		TableColumn<Metrocard, Integer> colbeschibaar = new TableColumn<>("beschikbare ritten");
