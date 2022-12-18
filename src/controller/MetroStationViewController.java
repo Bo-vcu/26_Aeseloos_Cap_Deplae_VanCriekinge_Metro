@@ -18,6 +18,7 @@ public class MetroStationViewController implements Observer {
         this.metroStationView = metroStationView;
         this.metro = metro;
         this.metro.addObserver(MetroEventEnum.OPEN_METROSTATION, this);
+        this.metro.addObserver(MetroEventEnum.BUY_METROCARD, this);
     }
 
     @Override

@@ -33,6 +33,7 @@ public class ControlCenterPane extends GridPane {
         openMetroStationButton.setOnAction(event -> {
             try {
                 controlCenterPaneController.openMetroStation();
+                controlCenterPaneController.setMetroOpenOpTrue();
             } catch (BiffException e) {
                 e.printStackTrace();
             } catch (IOException e) {

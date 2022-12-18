@@ -40,7 +40,7 @@ public class MetroCardsExcelLoadSaveStrategy extends ExcelLoadSaveTemplate imple
             }
             for (ArrayList<String> metrocard : info) {
                 try {
-                    db.metrocards.put(Integer.parseInt(metrocard.get(0)), new Metrocard(Integer.parseInt(metrocard.get(0)), metrocard.get(1), Integer.parseInt(metrocard.get(2)), Integer.parseInt(metrocard.get(3))));
+                    db.metrocards.put(metrocard.get(0), new Metrocard(Integer.parseInt(metrocard.get(0)), metrocard.get(1), Integer.parseInt(metrocard.get(2)), Integer.parseInt(metrocard.get(3))));
                 }catch (ClassCastException e){
                     System.out.println("kan niet veranderen nu" + e.getMessage());
                 }

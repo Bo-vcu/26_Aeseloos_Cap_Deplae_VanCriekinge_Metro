@@ -13,27 +13,24 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-public class MetrocardsTekstLoadSaveStrategy extends TekstLoadSaveTemplate implements LoadSaveStrategy{
+public class MetrocardsTekstLoadSaveStrategy extends TekstLoadSaveTemplate implements LoadSaveStrategy {
     String path = "src/bestanden/metrocards.txt";
 
-  public void load(MetrocardDatabase db) throws IOException {
+    public void load(MetrocardDatabase db) throws IOException {
         File file = new File(path);
         Map added = super.load(file);
-        try{
-            db.metrocards.putAll(added);
-            System.out.println("Successfully loaded (" + added.size() + ") cards from file.");
-        }catch (ClassCastException e){
-            System.out.println("kan niet veranderen nu bitch" + e.getMessage());
-        }
+
+        db.metrocards.putAll(added);
+        System.out.println("Successfully loaded (" + added.size() + ") cards from file.");
+
     }
 
     protected Metrocard maakObject(String[] tokens) {
-            Metrocard metrocard = new Metrocard(Integer.parseInt(tokens[0]), tokens[1], Integer.parseInt(tokens[2]),
-                    Integer.parseInt(tokens[3]));
-            return metrocard;
-        }
+        return new Metrocard(Integer.parseInt(tokens[0]), tokens[1], Integer.parseInt(tokens[2]),
+                Integer.parseInt(tokens[3]));
+    }
 
-    protected String getKey(String[] tokens){
+    protected String getKey(String[] tokens) {
         return tokens[0];
     }
 
