@@ -115,9 +115,6 @@ public class MetroTicketView extends GridPane {
 		Text totalPriceText = new Text("Total price:");
 		Text totalPriceValue = new Text();
 		addExtraRides.setOnAction(event -> {
-<<<<<<< Updated upstream
-			metroTicketViewController.calculatePrice(Integer.parseInt(numberOfRidesTextField.getText()), checkBox1.isSelected(), String.valueOf(toggleGroup.getSelectedToggle().getUserData()));
-=======
 			int ritten = Integer.parseInt(numberOfRidesTextField.getText());
 			//boolean is24Min = false;
 			boolean is64Plus = false;
@@ -142,7 +139,6 @@ public class MetroTicketView extends GridPane {
 			int id = (int) choiceBox.getValue();
 			double price = metroTicketViewController.calculatePrice(is24Min, is64Plus, isStudent, id)*ritten;
 			totalPriceValue.setText("€" + String.valueOf(round(price, 2)));
->>>>>>> Stashed changes
 		});
 
 		totalPriceText.setLayoutX(30);

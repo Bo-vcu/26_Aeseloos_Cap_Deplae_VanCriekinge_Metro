@@ -4,8 +4,10 @@ import model.MetroFacade;
 import model.Metrocard;
 
 public class TicketPriceFactory {
-<<<<<<< Updated upstream
-    public TicketPrice createTicketPrice(Integer aantal, boolean student, String ageGap){
+    private MetroFacade metro;
+    private TicketPrice price;
+
+    public TicketPrice createTicketPrice(Integer aantal, boolean student, String ageGap) {
         TicketPrice instance = null;
 
         if (student) {
@@ -22,11 +24,9 @@ public class TicketPriceFactory {
             }
         }
         return instance;
-=======
-    private MetroFacade metro;
-    private TicketPrice price;
+    }
 
-    public TicketPriceFactory(){
+    public TicketPriceFactory() {
 
     }
 
@@ -44,6 +44,5 @@ public class TicketPriceFactory {
         }
         System.out.println(price.getPrice());
         return price.getPrice();
->>>>>>> Stashed changes
     }
 }

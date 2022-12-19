@@ -42,14 +42,9 @@ public class MetroTicketViewController implements Observer {
         metroTicketView.updateMetrocardIDList(ids);
     }
 
-<<<<<<< Updated upstream
-    public void calculatePrice(Integer aantal, boolean student, String ageGap) {
-        
-=======
     public double calculatePrice(boolean is24Min, boolean is64Plus, boolean isStudent, int id) {
         double price = metro.getPrice(is24Min, is64Plus, isStudent, id);
         this.metroDiscountList = metro.getMetroTicketsDiscountList();
         return price;
->>>>>>> Stashed changes
     }
 }

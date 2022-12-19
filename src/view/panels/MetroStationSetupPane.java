@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.MetroFacade;
 import model.database.MetrocardDatabase;
@@ -55,18 +56,16 @@ public class MetroStationSetupPane extends GridPane {
         frequentTravellerDiscount.setPadding(new Insets(5, 0, 5, 0));
         if (metroStationSetupPaneController.read("discount").contains("frequentTravellerDiscount")) frequentTravellerDiscount.setSelected(true);
 
-<<<<<<< Updated upstream
         Button saveButton = new Button("save");
         saveButton.setOnAction(event -> {
             try {
                 metroStationSetupPaneController.save((LoadSaveStrategy) group.getSelectedToggle().getUserData());
                 metroStationSetupPaneController.saveDiscount(age64PlusDiscount.isSelected(), christmasLeaveDiscount.isSelected(), studentDiscount.isSelected(), frequentTravellerDiscount.isSelected());
-=======
-        button1.setSelected(true);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-
-
-        root.getChildren().addAll(button1,button2);
         Text text = new Text("");
         root.getChildren().addAll(text);
         saveButton.setOnAction(event -> {
@@ -76,8 +75,6 @@ public class MetroStationSetupPane extends GridPane {
                 }else{
                     text.setText("Metro Station is already open!");
                 }
-
->>>>>>> Stashed changes
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -86,7 +83,4 @@ public class MetroStationSetupPane extends GridPane {
         root.getChildren().addAll(button1, button2, age64PlusDiscount, christmasLeaveDiscount, studentDiscount, frequentTravellerDiscount, saveButton);
         this.add(root,1,1);
     }
-
-
-
 }

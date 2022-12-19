@@ -59,6 +59,10 @@ public class MetroStationSetupPaneController implements Observer {
         return properties.getProperty(keyword);
     }
 
+    public boolean getMetroOpenStatus() {
+      return metro.getMetroOpenStatus();
+    }
+
     @Override
     public void update() {
     }
