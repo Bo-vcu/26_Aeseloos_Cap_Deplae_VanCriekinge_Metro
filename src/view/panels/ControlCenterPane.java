@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import jxl.read.biff.BiffException;
+import jxl.write.WriteException;
 import model.MetroFacade;
 import model.Metrocard;
 import model.database.MetrocardDatabase;
@@ -39,6 +40,20 @@ public class ControlCenterPane extends GridPane {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        });
+        Button closeMetroStationButton = new Button("close Metrostation");
+        this.add(closeMetroStationButton, 50, 60, 1, 1);
+        closeMetroStationButton.setOnAction(event -> {
+            try {
+                controlCenterPaneController.closeMetroStation();
+            } catch (BiffException e) {
+                throw new RuntimeException(e);
+            } catch (WriteException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            controlCenterPaneController.setMetroOpenOpFalse();
         });
 
     }

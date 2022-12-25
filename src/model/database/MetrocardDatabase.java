@@ -58,7 +58,7 @@ public class MetrocardDatabase {
         metrocards.put(String.valueOf(metrocard.getId()),metrocard);
         System.out.println(metrocards);
         load();
-        save();
+        //save(); niet gebruiken
     }
 
     public Metrocard getMetroCardByID(int id){
@@ -70,24 +70,24 @@ public class MetrocardDatabase {
         return null;
     }
 
-    public static void main(String[] args) throws BiffException, IOException, WriteException {
-        Properties properties = new Properties();
-        InputStream is = Files.newInputStream(Paths.get("src/bestanden/settings.properties"));
-
-        properties.load(is);
-        String dbType = properties.getProperty("database");
-
-        MetrocardDatabase db = new MetrocardDatabase();
-
-
-        db.setLoadSaveStrategy(new MetrocardsTekstLoadSaveStrategy());
-        db.load();
-
-        db.addMetrocard(new Metrocard(6, "3#2022", 2, 0));
-
-        db.save();
-
-
-        System.out.println(db.getMetrocardList());
-    }
+//    public static void main(String[] args) throws BiffException, IOException, WriteException {
+//        Properties properties = new Properties();
+//        InputStream is = Files.newInputStream(Paths.get("src/bestanden/settings.properties"));
+//
+//        properties.load(is);
+//        String dbType = properties.getProperty("database");
+//
+//        MetrocardDatabase db = new MetrocardDatabase();
+//
+//
+//        db.setLoadSaveStrategy(new MetrocardsTekstLoadSaveStrategy());
+//        db.load();
+//
+//        db.addMetrocard(new Metrocard(6, "3#2022", 2, 0));
+//
+//        db.save();
+//
+//
+//        System.out.println(db.getMetrocardList());
+//    }
 }

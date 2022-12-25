@@ -1,5 +1,6 @@
 package model;
 
+import javafx.application.Platform;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 import model.TicketPriceDecorator.TicketPriceDiscountEnum;
@@ -24,6 +25,8 @@ public class MetroFacade implements Subject {
 
     private Map<MetroEventEnum, List<Observer>> observers = new HashMap<>();
 
+    private LoadSaveStrategy loadSaveStrategy;
+
 
     LoadSaveStrategyFactory loadSaveStrategyFactory = new LoadSaveStrategyFactory();
     TicketPriceFactory ticketPriceFactory = new TicketPriceFactory();
@@ -39,6 +42,10 @@ public class MetroFacade implements Subject {
         this.metroOpen = true;
     }
 
+    public void setMetroOpenOpFalse() {
+        this.metroOpen = false;
+    }
+
     public boolean getMetroOpenStatus(){
         return metroOpen;
     }
@@ -48,6 +55,14 @@ public class MetroFacade implements Subject {
         db.setLoadSaveStrategy(loadSaveStrategy);
         db.load();
         notifyObservers(MetroEventEnum.OPEN_METROSTATION);
+    }
+
+    public void closeMetroStation() throws BiffException, WriteException, IOException {
+        db.save();
+        this.loadSaveStrategy = null;
+        db.setLoadSaveStrategy(null);
+        notifyObservers(MetroEventEnum.CLOSE_METROSTATION);
+        Platform.exit();
     }
 
     public ArrayList<Metrocard> getMetroCardList(){
