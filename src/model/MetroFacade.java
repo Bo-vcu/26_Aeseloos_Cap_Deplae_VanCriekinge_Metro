@@ -27,15 +27,28 @@ public class MetroFacade implements Subject {
 
     private LoadSaveStrategy loadSaveStrategy;
 
+    private ArrayList<MetroGate> metroGates = new ArrayList<>();
+
+    private Metrostation metrostation;
+    private int gates=3;
+
 
     LoadSaveStrategyFactory loadSaveStrategyFactory = new LoadSaveStrategyFactory();
     TicketPriceFactory ticketPriceFactory = new TicketPriceFactory();
     MetrocardDatabase db = new MetrocardDatabase();
 
+
     public MetroFacade(){
         for (MetroEventEnum e: MetroEventEnum.values()){
             observers.put(e, new ArrayList<Observer>());
         }
+        for (int i=0;i<gates;i++){
+            MetroGate metroGate = new MetroGate();
+            metroGate.setMetroGateState(metroGate.getClosed());
+            metroGates.add(metroGate);
+        }
+
+        this.metrostation = new Metrostation(this);
     }
 
     public void setMetroOpenOpTrue() {
@@ -111,8 +124,13 @@ public class MetroFacade implements Subject {
         return metroDiscountList;
     }
 
-    public void scanMetroGate(int metroCardID, int gateId){
+    public ArrayList<MetroGate> getMetroGates() {
+        return metroGates;
+    }
 
+    public String scanMetroGate(int metroCardID, int gateId){
+        db.getMetroCardByID(metroCardID);
+        return metrostation.scanMetroGate(gateId);
     }
 
     @Override

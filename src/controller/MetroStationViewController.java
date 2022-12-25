@@ -1,13 +1,8 @@
 package controller;
 
-import model.MetroEventEnum;
-import model.MetroFacade;
-import model.Metrocard;
-import model.Observer;
-import sun.util.resources.LocaleData;
+import model.*;
 import view.MetroStationView;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class MetroStationViewController implements Observer {
@@ -27,14 +22,41 @@ public class MetroStationViewController implements Observer {
         metroStationView.updateMetrocardIDList(ids);
     }
 
-    public String scanMetrocard(Integer checkboxValue) {
-        Metrocard metrocard = metro.getMetroCardList().get(checkboxValue - 1);
-        if (metrocard.getAantalBeschikbare() != 0) {
-            String[] datum = metrocard.getMaand_jaar().split("");
-            LocalDate localDate = LocalDate.of(Integer.parseInt(datum[1]) + 1,Integer.parseInt(datum[0]) + 1, 1);
-            if (LocalDate.now().isBefore(localDate))
-                return "Card " + checkboxValue + " is scanned";
-            }
-        return "Card " + checkboxValue + " is expired";
+    public String scanMetrocard(Integer checkboxValue, int gateID) {
+        return metro.scanMetroGate(checkboxValue,gateID);
+//        Metrocard metrocard = metro.getMetroCardList().get(checkboxValue - 1);
+//        if (metrocard.getAantalBeschikbare() != 0) {
+//
+//            metrocard.setAantalBeschikbare(metrocard.getAantalBeschikbare()-1);
+//            metrocard.setAantalVerbruikte(metrocard.getAantalVerbruikte()+1);
+//
+//            String[] datum = metrocard.getMaand_jaar().split("/");
+//
+//            LocalDate localDate;
+//
+//            if (Integer.parseInt(datum[0])==12){
+//                localDate = LocalDate.of(Integer.parseInt(datum[1]) + 2,1, 1);
+//            }
+//            else {
+//                localDate = LocalDate.of(Integer.parseInt(datum[1]) + 1,Integer.parseInt(datum[0]) + 1, 1);
+//            }
+//
+//            System.out.println(localDate);
+//            if (LocalDate.now().isBefore(localDate)){
+//                return "Card " + checkboxValue + " is scanned";
+//            }
+//            else {
+//                return "Card " + checkboxValue + " is expired";
+//            }
+//        }
+//        return "Card " + checkboxValue + " has no available tickets";
+    }
+
+    public String walkThroughGate() {
+        return "ezfsff";
+    }
+
+    public ArrayList<MetroGate> getAllGates() {
+        return metro.getMetroGates();
     }
 }

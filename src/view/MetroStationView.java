@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import jxl.read.biff.BiffException;
 import model.MetroFacade;
+import model.MetroGate;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,12 +43,15 @@ public class MetroStationView {
 		}
 
 
-		for (ChoiceBox c:choiceBoxes){
+		for (MetroGate mg:metroStationViewController.getAllGates()){
 
+			ChoiceBox c = new ChoiceBox();
+			//MetroGate metroGate = new MetroGate();
+			//metroGate.setMetroGateState(metroGate.getClosed());
 			Group gate = new Group();
 
 			Text title = new Text("Gate "+gateNr);
-			gateNr++;
+
 
 			Text ids = new Text("MetroCardID:");
 			ids.setY(20);
@@ -62,8 +66,10 @@ public class MetroStationView {
 			notification.setY(180);
 
 			Button scanMetrocard = new Button("Scan metrocard");
+			int finalGateNr = gateNr;
 			scanMetrocard.setOnAction(event -> {
-				String result = metroStationViewController.scanMetrocard((Integer) c.getValue());
+				//String result = metroGate.getMetroGateState().scanMetroCard();
+				String result = metroStationViewController.scanMetrocard((Integer) c.getValue(), finalGateNr);
 				notification.setText(result);
 			});
 
@@ -71,6 +77,13 @@ public class MetroStationView {
 
 
 			Button walkThroughGate = new Button("Walk through gate");
+			int finalGateNr1 = gateNr;
+			walkThroughGate.setOnAction(event -> {
+				//String result = mg.getMetroGateState().walkTroughGate();
+				String result = metroStationViewController.walkThroughGate(/*(Integer) c.getValue(), finalGateNr1*/);
+				metroStationViewController.walkThroughGate();
+				notification.setText(result);
+			});
 
 			walkThroughGate.setLayoutY(120);
 
@@ -79,6 +92,8 @@ public class MetroStationView {
 
 
 			root.getChildren().add(gate);
+
+			gateNr++;
 		}
 		Scene scene = new Scene(root, 650, 300);			
 		stage.setScene(scene);
