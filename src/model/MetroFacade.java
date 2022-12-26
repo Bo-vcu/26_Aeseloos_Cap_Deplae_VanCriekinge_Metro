@@ -1,8 +1,8 @@
 package model;
 
+import javafx.application.Platform;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
-import model.TicketPriceDecorator.TicketPriceDiscountEnum;
 import model.TicketPriceDecorator.TicketPriceFactory;
 import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.LoadSaveStrategy;
@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static model.Metrocard.isExpired;
+
 public class MetroFacade implements Subject {
 
     private boolean metroOpen = false;
@@ -24,19 +26,38 @@ public class MetroFacade implements Subject {
 
     private Map<MetroEventEnum, List<Observer>> observers = new HashMap<>();
 
+    private LoadSaveStrategy loadSaveStrategy;
+
+    private ArrayList<MetroGate> metroGates = new ArrayList<>();
+
+    private Metrostation metrostation;
+    private int gates=3;
+
 
     LoadSaveStrategyFactory loadSaveStrategyFactory = new LoadSaveStrategyFactory();
     TicketPriceFactory ticketPriceFactory = new TicketPriceFactory();
     MetrocardDatabase db = new MetrocardDatabase();
 
+
     public MetroFacade(){
         for (MetroEventEnum e: MetroEventEnum.values()){
             observers.put(e, new ArrayList<Observer>());
         }
+        for (int i=0;i<gates;i++){
+            MetroGate metroGate = new MetroGate();
+            metroGate.setMetroGateState(metroGate.getClosed());
+            metroGates.add(metroGate);
+        }
+
+        this.metrostation = new Metrostation(this);
     }
 
     public void setMetroOpenOpTrue() {
         this.metroOpen = true;
+    }
+
+    public void setMetroOpenOpFalse() {
+        this.metroOpen = false;
     }
 
     public boolean getMetroOpenStatus(){
@@ -48,6 +69,14 @@ public class MetroFacade implements Subject {
         db.setLoadSaveStrategy(loadSaveStrategy);
         db.load();
         notifyObservers(MetroEventEnum.OPEN_METROSTATION);
+    }
+
+    public void closeMetroStation() throws BiffException, WriteException, IOException {
+        db.save();
+        this.loadSaveStrategy = null;
+        db.setLoadSaveStrategy(null);
+        notifyObservers(MetroEventEnum.CLOSE_METROSTATION);
+        Platform.exit();
     }
 
     public ArrayList<Metrocard> getMetroCardList(){
@@ -96,8 +125,25 @@ public class MetroFacade implements Subject {
         return metroDiscountList;
     }
 
-    public void scanMetroGate(int metroCardID, int gateId){
+    public ArrayList<MetroGate> getMetroGates() {
+        return metroGates;
+    }
 
+    public String scanMetroGate(int metroCardID, int gateId){
+        Metrocard metrocard = db.getMetroCardByID(metroCardID);
+        if (isExpired(metrocard)){
+            return "card is expired";
+        }
+        else {
+            metrocard.setAantalBeschikbare(metrocard.getAantalBeschikbare()-1);
+            metrocard.setAantalVerbruikte(metrocard.getAantalVerbruikte()+1);
+            notifyObservers(MetroEventEnum.SCAN_METROCARD);
+            return metrostation.scanMetroGate(gateId);
+        }
+    }
+
+    public String walkTroughGate(int gateId){
+        return metrostation.walkTroughGate(gateId);
     }
 
     @Override
