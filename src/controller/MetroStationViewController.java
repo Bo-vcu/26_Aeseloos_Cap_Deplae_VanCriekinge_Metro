@@ -25,6 +25,7 @@ public class MetroStationViewController implements Observer {
     public String scanMetrocard(Integer checkboxValue, int gateID) {
         Metrocard metrocard = metro.getMetroCardList().get(checkboxValue - 1);
         if (metrocard.getAantalBeschikbare() != 0) {
+            metro.getMetroGates().get(gateID - 1).setAantalScannedCards(metro.getMetroGates().get(gateID - 1).getAantalScannedCards() + 1);
             return metro.scanMetroGate(checkboxValue,gateID);
         }
 //

@@ -9,6 +9,7 @@ import model.MetroGateStates.Open;
 public class MetroGate {
     private MetroGateState inactive, closed, open;
     private ChoiceBox choiceBox;
+    private int aantalScannedCards;
 
     private MetroGateState metroGateState;
 
@@ -17,8 +18,16 @@ public class MetroGate {
         closed = new Closed(this);
         open = new Open(this);
         setMetroGateState(getInactive());
-
+        this.aantalScannedCards = 0;
         this.choiceBox = new ChoiceBox();
+    }
+
+    public void setAantalScannedCards(int aantalScannedCards) {
+        this.aantalScannedCards = aantalScannedCards;
+    }
+
+    public int getAantalScannedCards() {
+        return aantalScannedCards;
     }
 
     public MetroGateState getMetroGateState() {
