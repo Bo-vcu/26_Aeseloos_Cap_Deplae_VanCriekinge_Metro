@@ -3,7 +3,6 @@ package model;
 import javafx.application.Platform;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
-import model.TicketPriceDecorator.TicketPriceDiscountEnum;
 import model.TicketPriceDecorator.TicketPriceFactory;
 import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.LoadSaveStrategy;
@@ -16,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static model.Metrocard.isExpired;
 
 public class MetroFacade implements Subject {
 
@@ -129,8 +130,20 @@ public class MetroFacade implements Subject {
     }
 
     public String scanMetroGate(int metroCardID, int gateId){
-        db.getMetroCardByID(metroCardID);
-        return metrostation.scanMetroGate(gateId);
+        Metrocard metrocard = db.getMetroCardByID(metroCardID);
+        if (isExpired(metrocard)){
+            return "card is expired";
+        }
+        else {
+            metrocard.setAantalBeschikbare(metrocard.getAantalBeschikbare()-1);
+            metrocard.setAantalVerbruikte(metrocard.getAantalVerbruikte()+1);
+            notifyObservers(MetroEventEnum.SCAN_METROCARD);
+            return metrostation.scanMetroGate(gateId);
+        }
+    }
+
+    public String walkTroughGate(int gateId){
+        return metrostation.walkTroughGate(gateId);
     }
 
     @Override

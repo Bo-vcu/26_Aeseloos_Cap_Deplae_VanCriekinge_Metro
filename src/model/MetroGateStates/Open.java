@@ -15,7 +15,7 @@ public class Open implements MetroGateState {
     @Override
     public String walkTroughGate() {
         metroGate.setMetroGateState(metroGate.getClosed());
-        return "you walked through the gate, it closed behind you";
+        return "you walked through the\ngate, it closed behind you";
     }
 
     @Override

@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.control.ChoiceBox;
 import model.MetroGateStates.Closed;
 import model.MetroGateStates.Inactive;
 import model.MetroGateStates.MetroGateState;
@@ -7,6 +8,7 @@ import model.MetroGateStates.Open;
 
 public class MetroGate {
     private MetroGateState inactive, closed, open;
+    private ChoiceBox choiceBox;
 
     private MetroGateState metroGateState;
 
@@ -15,6 +17,8 @@ public class MetroGate {
         closed = new Closed(this);
         open = new Open(this);
         setMetroGateState(getInactive());
+
+        this.choiceBox = new ChoiceBox();
     }
 
     public MetroGateState getMetroGateState() {
@@ -35,5 +39,9 @@ public class MetroGate {
 
     public MetroGateState getOpen() {
         return open;
+    }
+
+    public ChoiceBox getChoiceBox() {
+        return choiceBox;
     }
 }

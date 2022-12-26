@@ -23,9 +23,10 @@ public class MetroStationViewController implements Observer {
     }
 
     public String scanMetrocard(Integer checkboxValue, int gateID) {
-        return metro.scanMetroGate(checkboxValue,gateID);
-//        Metrocard metrocard = metro.getMetroCardList().get(checkboxValue - 1);
-//        if (metrocard.getAantalBeschikbare() != 0) {
+        Metrocard metrocard = metro.getMetroCardList().get(checkboxValue - 1);
+        if (metrocard.getAantalBeschikbare() != 0) {
+            return metro.scanMetroGate(checkboxValue,gateID);
+        }
 //
 //            metrocard.setAantalBeschikbare(metrocard.getAantalBeschikbare()-1);
 //            metrocard.setAantalVerbruikte(metrocard.getAantalVerbruikte()+1);
@@ -49,11 +50,11 @@ public class MetroStationViewController implements Observer {
 //                return "Card " + checkboxValue + " is expired";
 //            }
 //        }
-//        return "Card " + checkboxValue + " has no available tickets";
+        return "Card " + checkboxValue + " has no available tickets";
     }
 
-    public String walkThroughGate() {
-        return "ezfsff";
+    public String walkThroughGate(int gateID) {
+        return metro.walkTroughGate(gateID);
     }
 
     public ArrayList<MetroGate> getAllGates() {

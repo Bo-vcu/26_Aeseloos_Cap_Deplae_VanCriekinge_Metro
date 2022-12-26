@@ -12,12 +12,14 @@ public class Metrostation {
     }
 
     public String scanMetroGate(int gateId) {
+        String message = metroFacade.getMetroGates().get(gateId-1).getMetroGateState().scanMetroCard();
         metroFacade.getMetroGates().get(gateId-1).setMetroGateState(metroFacade.getMetroGates().get(gateId-1).getOpen());
-        return metroFacade.getMetroGates().get(gateId-1).getMetroGateState().scanMetroCard();
+        return message;
     }
 
     public String walkTroughGate(int gateId) {
-        metroFacade.getMetroGates().get(gateId-1).setMetroGateState(metroFacade.getMetroGates().get(gateId-1).getOpen());
-        return metroFacade.getMetroGates().get(gateId-1).getMetroGateState().scanMetroCard();
+        String message = metroFacade.getMetroGates().get(gateId-1).getMetroGateState().walkTroughGate();
+        metroFacade.getMetroGates().get(gateId-1).setMetroGateState(metroFacade.getMetroGates().get(gateId-1).getClosed());
+        return message;
     }
 }

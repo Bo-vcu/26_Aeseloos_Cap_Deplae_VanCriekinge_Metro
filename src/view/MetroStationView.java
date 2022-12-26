@@ -45,7 +45,7 @@ public class MetroStationView {
 
 		for (MetroGate mg:metroStationViewController.getAllGates()){
 
-			ChoiceBox c = new ChoiceBox();
+			ChoiceBox c = mg.getChoiceBox();
 			//MetroGate metroGate = new MetroGate();
 			//metroGate.setMetroGateState(metroGate.getClosed());
 			Group gate = new Group();
@@ -80,8 +80,8 @@ public class MetroStationView {
 			int finalGateNr1 = gateNr;
 			walkThroughGate.setOnAction(event -> {
 				//String result = mg.getMetroGateState().walkTroughGate();
-				String result = metroStationViewController.walkThroughGate(/*(Integer) c.getValue(), finalGateNr1*/);
-				metroStationViewController.walkThroughGate();
+				String result = metroStationViewController.walkThroughGate(finalGateNr1);
+				//metroStationViewController.walkThroughGate();
 				notification.setText(result);
 			});
 
@@ -103,9 +103,9 @@ public class MetroStationView {
 
 	public void updateMetrocardIDList(ArrayList<Integer> metroCardIds){
 		this.metroIDs = FXCollections.observableArrayList(metroCardIds);
-		for (ChoiceBox c:choiceBoxes){
-			c.setItems(metroIDs);
-			c.setValue(metroIDs.get(0));
+		for (MetroGate mg:metroStationViewController.getAllGates()){
+			mg.getChoiceBox().setItems(metroIDs);
+			mg.getChoiceBox().setValue(metroIDs.get(0));
 		}
 	}
 }
