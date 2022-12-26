@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Metrocard {
     private int id;
     private String maand_jaar;
@@ -48,5 +50,21 @@ public class Metrocard {
     public String toString(){
         return id+";"+maand_jaar+";"+aantalBeschikbare+";"+aantalVerbruikte;
 
+    }
+
+    public static boolean isExpired(Metrocard metrocard) {
+        String[] datum = metrocard.getMaand_jaar().split("/");
+
+            LocalDate localDate;
+
+            if (Integer.parseInt(datum[0])==12){
+                localDate = LocalDate.of(Integer.parseInt(datum[1]) + 2,1, 1);
+            }
+            else {
+                localDate = LocalDate.of(Integer.parseInt(datum[1]) + 1,Integer.parseInt(datum[0]) + 1, 1);
+            }
+
+            System.out.println(localDate);
+        return localDate.isBefore(LocalDate.now());
     }
 }
