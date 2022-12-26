@@ -67,18 +67,22 @@ public class ControlCenterPane extends GridPane {
         int i = 0;
         for (MetroGate metroGate : controlCenterPaneController.getAllGates()) {
             Group root = new Group();
-            Text gate = new Text("Gate " + (i + 1) + " / " + metroGate.getMetroGateState());
+            Text gate = new Text("Gate " + (i + 1) + " / Active");
             gate.setLayoutX(20 + 10*i);
             gate.setLayoutY(60);
             Button activate = new Button("Activate");
+            int finalI = i;
             activate.setOnAction(event -> {
                 metroGate.setMetroGateState(metroGate.getClosed());
+                gate.setText("Gate " + (finalI + 1) + " / Active");
             });
             activate.setLayoutX(20 + 10*i);
             activate.setLayoutY(70);
             Button deactivate = new Button("Deactivate");
+            int finalI1 = i;
             deactivate.setOnAction(event -> {
                 metroGate.setMetroGateState(metroGate.getInactive());
+                gate.setText("Gate " + (finalI1 + 1) + " / Inactive");
             });
             deactivate.setLayoutX(20 + 10*i);
             deactivate.setLayoutY(110);
