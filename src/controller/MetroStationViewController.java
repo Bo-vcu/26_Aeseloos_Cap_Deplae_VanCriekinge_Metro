@@ -14,6 +14,7 @@ public class MetroStationViewController implements Observer {
         this.metro = metro;
         this.metro.addObserver(MetroEventEnum.OPEN_METROSTATION, this);
         this.metro.addObserver(MetroEventEnum.BUY_METROCARD, this);
+        this.metro.addObserver(MetroEventEnum.CHANGE_GATE, this);
     }
 
     @Override
@@ -61,4 +62,8 @@ public class MetroStationViewController implements Observer {
     public ArrayList<MetroGate> getAllGates() {
         return metro.getMetroGates();
     }
+
+//    public void changeColor(int finalI1) {
+//        metroStationView.setColorInactive(String.valueOf(finalI1));
+//    }
 }

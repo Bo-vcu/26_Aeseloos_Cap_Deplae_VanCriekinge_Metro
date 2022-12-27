@@ -2,6 +2,7 @@ package controller;
 
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
+import model.MetroEventEnum;
 import model.MetroFacade;
 import model.MetroGate;
 import model.Observer;
@@ -46,5 +47,12 @@ public class ControlCenterPaneController implements Observer {
 
     }
 
+    public void updateGates() {
+        metro.notifyObservers(MetroEventEnum.CHANGE_GATE);
+    }
+
+//    public void changeColor(int finalI1) {
+//        metro.changeColor(finalI1);
+//    }
 
 }

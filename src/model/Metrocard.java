@@ -64,7 +64,6 @@ public class Metrocard {
                 localDate = LocalDate.of(Integer.parseInt(datum[1]) + 1,Integer.parseInt(datum[0]) + 1, 1);
             }
 
-            System.out.println(localDate);
         return localDate.isBefore(LocalDate.now());
     }
 }

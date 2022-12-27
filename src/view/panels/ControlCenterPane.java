@@ -1,6 +1,7 @@
 package view.panels;
 
 import controller.ControlCenterPaneController;
+import controller.MetroStationViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +24,7 @@ import model.MetroGate;
 import model.Metrocard;
 import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.MetroCardsExcelLoadSaveStrategy;
+import view.MetroStationView;
 
 import java.io.IOException;
 
@@ -68,7 +70,8 @@ public class ControlCenterPane extends GridPane {
 
         int i = 0;
         for (MetroGate metroGate : controlCenterPaneController.getAllGates()) {
-            Group root = new Group();
+            VBox gateBox = new VBox();
+            gateBox.setId(String.valueOf(i+1));
             Text gate = new Text("Gate " + (i + 1) + " / Active");
             gate.setLayoutX(20 + 10*i);
             gate.setLayoutY(60);
@@ -76,6 +79,8 @@ public class ControlCenterPane extends GridPane {
             int finalI = i;
             activate.setOnAction(event -> {
                 metroGate.setMetroGateState(metroGate.getClosed());
+                controlCenterPaneController.updateGates();
+                setColorActive(String.valueOf(finalI+1));
                 gate.setText("Gate " + (finalI + 1) + " / Active");
             });
             activate.setLayoutX(20 + 10*i);
@@ -84,6 +89,8 @@ public class ControlCenterPane extends GridPane {
             int finalI1 = i;
             deactivate.setOnAction(event -> {
                 metroGate.setMetroGateState(metroGate.getInactive());
+                controlCenterPaneController.updateGates();
+                setColorInactive(String.valueOf(finalI1+1));
                 gate.setText("Gate " + (finalI1 + 1) + " / Inactive");
             });
             deactivate.setLayoutX(20 + 10*i);
@@ -94,9 +101,20 @@ public class ControlCenterPane extends GridPane {
             Text aantalScannedCardsValue = new Text(String.valueOf(metroGate.getAantalScannedCards()));
             aantalScannedCardsValue.setLayoutX(20 + 10*i);
             aantalScannedCardsValue.setLayoutY(190);
-            root.getChildren().addAll(gate, activate, deactivate, aantalScannedCards, aantalScannedCardsValue);
-            this.add(root, i, 5);
+            gateBox.getChildren().addAll(gate, activate, deactivate, aantalScannedCards, aantalScannedCardsValue);
+//            group.getChildren().addAll(gateBox);
+            this.add(gateBox, i, 5);
             i++;
         }
+    }
+    private void setColorActive(String id) {
+        VBox box = (VBox) this.lookup("#" + id);
+        box.setStyle("-fx-background-color: white;");
+    }
+
+    public void setColorInactive(String id){
+        VBox box = (VBox) this.lookup("#" + id);
+        box.setStyle("-fx-background-color: orange;");
+
     }
 }

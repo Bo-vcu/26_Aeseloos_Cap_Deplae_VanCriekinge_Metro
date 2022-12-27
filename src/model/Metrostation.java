@@ -1,5 +1,7 @@
 package model;
 
+import model.MetroGateStates.Inactive;
+
 import java.util.ArrayList;
 
 public class Metrostation {
@@ -11,15 +13,22 @@ public class Metrostation {
         this.metroGates=new ArrayList<>();
     }
 
-    public String scanMetroGate(int gateId) {
+    public String scanMetroGate(int gateId, int cardID) {
+        Metrocard metrocard = metroFacade.getMetroCardByID(cardID);
         String message = metroFacade.getMetroGates().get(gateId-1).getMetroGateState().scanMetroCard();
-        metroFacade.getMetroGates().get(gateId-1).setMetroGateState(metroFacade.getMetroGates().get(gateId-1).getOpen());
+        if ( metroFacade.getMetroGates().get(gateId-1).getMetroGateState() !=  metroFacade.getMetroGates().get(gateId-1).getInactive()) {
+            metrocard.setAantalBeschikbare(metrocard.getAantalBeschikbare()-1);
+            metrocard.setAantalVerbruikte(metrocard.getAantalVerbruikte()+1);
+            metroFacade.getMetroGates().get(gateId-1).setMetroGateState(metroFacade.getMetroGates().get(gateId-1).getOpen());
+        }
         return message;
     }
 
     public String walkTroughGate(int gateId) {
         String message = metroFacade.getMetroGates().get(gateId-1).getMetroGateState().walkTroughGate();
-        metroFacade.getMetroGates().get(gateId-1).setMetroGateState(metroFacade.getMetroGates().get(gateId-1).getClosed());
+        if ( metroFacade.getMetroGates().get(gateId-1).getMetroGateState() !=  metroFacade.getMetroGates().get(gateId-1).getInactive()) {
+            metroFacade.getMetroGates().get(gateId-1).setMetroGateState(metroFacade.getMetroGates().get(gateId-1).getClosed());
+        }
         return message;
     }
 }

@@ -31,7 +31,7 @@ public class MetroFacade implements Subject {
     private ArrayList<MetroGate> metroGates = new ArrayList<>();
 
     private Metrostation metrostation;
-    private int gates=3;
+    private final int gates=3;
 
 
     LoadSaveStrategyFactory loadSaveStrategyFactory = new LoadSaveStrategyFactory();
@@ -46,6 +46,7 @@ public class MetroFacade implements Subject {
         for (int i=0;i<gates;i++){
             MetroGate metroGate = new MetroGate();
             metroGate.setMetroGateState(metroGate.getClosed());
+            metroGate.setId(i+1);
             metroGates.add(metroGate);
         }
 
@@ -89,6 +90,15 @@ public class MetroFacade implements Subject {
 
     public ArrayList<Integer> getMetroCardDList(){
         return db.getMetroCardIDList();
+    }
+
+    public Metrocard getMetroCardByID(int cardID){
+        for (Metrocard m: getMetroCardList()){
+            if (m.getId() == cardID){
+                return m;
+            }
+        }
+        return null;
     }
 
     public int getLastID(){
@@ -139,10 +149,8 @@ public class MetroFacade implements Subject {
             return "card is expired";
         }
         else {
-            metrocard.setAantalBeschikbare(metrocard.getAantalBeschikbare()-1);
-            metrocard.setAantalVerbruikte(metrocard.getAantalVerbruikte()+1);
             notifyObservers(MetroEventEnum.SCAN_METROCARD);
-            return metrostation.scanMetroGate(gateId);
+            return metrostation.scanMetroGate(gateId, metroCardID);
         }
     }
 
@@ -172,4 +180,7 @@ public class MetroFacade implements Subject {
 
 
 
+//    public void changeColor(int finalI1) {
+//
+//    }
 }

@@ -10,6 +10,7 @@ public class MetroGate {
     private MetroGateState inactive, closed, open;
     private ChoiceBox choiceBox;
     private int aantalScannedCards;
+    private int id;
 
     private MetroGateState metroGateState;
 
@@ -52,5 +53,13 @@ public class MetroGate {
 
     public ChoiceBox getChoiceBox() {
         return choiceBox;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }
