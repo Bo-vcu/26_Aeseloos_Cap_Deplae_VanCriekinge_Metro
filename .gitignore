@@ -2,4 +2,5 @@
 .idea/
 target/
 out/
-src/bestanden/
+src/bestanden/*
+src/bestanden/settings.properties
