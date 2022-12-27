@@ -31,13 +31,15 @@ public class ControlCenterPaneController implements Observer {
         metro.closeMetroStation();
     }
 
-    public void setMetroOpenOpTrue() {
-        metro.setMetroOpenOpTrue();
-    }
+//    public void setMetroOpenOpTrue() {
+//        metro.setMetroOpenOpTrue();
+//    }
+//
+//    public void setMetroOpenOpFalse() {
+//        metro.setMetroOpenOpFalse();
+//    }
 
-    public void setMetroOpenOpFalse() {
-        metro.setMetroOpenOpFalse();
-    }
+    public void toggleMetroOpen(){metro.toggleMetroOpen();}
 
     @Override
     public void update() {

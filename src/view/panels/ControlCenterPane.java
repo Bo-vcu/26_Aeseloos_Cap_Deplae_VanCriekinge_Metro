@@ -40,14 +40,15 @@ public class ControlCenterPane extends GridPane {
         openMetroStationButton.setOnAction(event -> {
             try {
                 controlCenterPaneController.openMetroStation();
-                controlCenterPaneController.setMetroOpenOpTrue();
+                //controlCenterPaneController.setMetroOpenOpTrue();
+                controlCenterPaneController.toggleMetroOpen();
             } catch (BiffException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        Button closeMetroStationButton = new Button("close Metrostation");
+        Button closeMetroStationButton = new Button("Close Metrostation");
         closeMetroStationButton.setLayoutY(40);
         closeMetroStationButton.setOnAction(event -> {
             try {
@@ -59,7 +60,8 @@ public class ControlCenterPane extends GridPane {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            controlCenterPaneController.setMetroOpenOpFalse();
+            //controlCenterPaneController.setMetroOpenOpFalse();
+            controlCenterPaneController.toggleMetroOpen();
         });
         group.getChildren().addAll(openMetroStationButton, closeMetroStationButton);
         this.add(group,0,1,1,1);

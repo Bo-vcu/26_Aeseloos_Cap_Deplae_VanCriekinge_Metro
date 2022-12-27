@@ -52,12 +52,16 @@ public class MetroFacade implements Subject {
         this.metrostation = new Metrostation(this);
     }
 
-    public void setMetroOpenOpTrue() {
-        this.metroOpen = true;
-    }
+//    public void setMetroOpenOpTrue() {
+//        this.metroOpen = true;
+//    }
+//
+//    public void setMetroOpenOpFalse() {
+//        this.metroOpen = false;
+//    }
 
-    public void setMetroOpenOpFalse() {
-        this.metroOpen = false;
+    public void toggleMetroOpen() {
+        this.metroOpen= !metroOpen;
     }
 
     public boolean getMetroOpenStatus(){
