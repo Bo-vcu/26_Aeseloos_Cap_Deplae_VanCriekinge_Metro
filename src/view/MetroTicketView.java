@@ -150,6 +150,9 @@ public class MetroTicketView extends GridPane {
 		explanationText.setLayoutX(30);
 		explanationText.setLayoutY(420);
 		Button confirmRequest = new Button("Confirm request");
+		confirmRequest.setOnAction(event -> {
+			metroTicketViewController.addMetrotickets((Integer) choiceBox.getValue(), Integer.parseInt(numberOfRidesTextField.getText()));
+		});
 		confirmRequest.setLayoutX(30);
 		confirmRequest.setLayoutY(450);
 		Button cancelRequest = new Button("Cancel request");

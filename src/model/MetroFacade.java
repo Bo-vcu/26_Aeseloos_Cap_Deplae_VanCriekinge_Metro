@@ -131,8 +131,16 @@ public class MetroFacade implements Subject {
         return ticketPriceFactory.createTicketPrice(is24Min, is64Plus, isStudent, db.getMetroCardByID(id));
     }
 
-    public void buyMetroCardTickets(Metrocard metrocard){
+    public void buyMetroCardTickets(int metrocardId, int amount){
+        Metrocard metrocard = db.getMetroCardByID(metrocardId);
 
+        String maand = String.valueOf(LocalDate.now().getMonthValue());
+        String jaar = String.valueOf(LocalDate.now().getYear());
+
+        metrocard.setMaand_jaar(maand+"#"+jaar);
+        metrocard.setAantalBeschikbare(metrocard.getAantalBeschikbare()+amount);
+
+        notifyObservers(MetroEventEnum.BUY_METROTICKET);
     }
 
     public ArrayList<String> getMetroTicketsDiscountList(){

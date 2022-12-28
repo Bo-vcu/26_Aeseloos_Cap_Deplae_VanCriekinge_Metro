@@ -47,4 +47,8 @@ public class MetroTicketViewController implements Observer {
         this.metroDiscountList = metro.getMetroTicketsDiscountList();
         return price;
     }
+
+    public void addMetrotickets(int id, int amount) {
+        metro.buyMetroCardTickets(id, amount);
+    }
 }
