@@ -2,6 +2,7 @@ package model;
 
 import model.MetroGateStates.Inactive;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Metrostation {
@@ -21,6 +22,11 @@ public class Metrostation {
             metrocard.setAantalVerbruikte(metrocard.getAantalVerbruikte()+1);
             metroFacade.getMetroGates().get(gateId-1).setMetroGateState(metroFacade.getMetroGates().get(gateId-1).getOpen());
         }
+        else if ( metroFacade.getMetroGates().get(gateId-1).getMetroGateState() ==  metroFacade.getMetroGates().get(gateId-1).getInactive()){
+            metroFacade.addAlert(LocalTime.now().getHour() + ":" + LocalTime.now().getMinute() +
+                    " UNAUTHORIZED PASSAGE GATE " + gateId);
+        }
+        metroFacade.notifyObservers(MetroEventEnum.SCAN_METROCARD);
         return message;
     }
 
@@ -29,6 +35,11 @@ public class Metrostation {
         if ( metroFacade.getMetroGates().get(gateId-1).getMetroGateState() !=  metroFacade.getMetroGates().get(gateId-1).getInactive()) {
             metroFacade.getMetroGates().get(gateId-1).setMetroGateState(metroFacade.getMetroGates().get(gateId-1).getClosed());
         }
+        else  if ( metroFacade.getMetroGates().get(gateId-1).getMetroGateState() ==  metroFacade.getMetroGates().get(gateId-1).getInactive()){
+            metroFacade.addAlert(LocalTime.now().getHour() + ":" + LocalTime.now().getMinute() +
+                    " UNAUTHORIZED PASSAGE GATE " + gateId);
+        }
+        metroFacade.notifyObservers(MetroEventEnum.SCAN_METROCARD);
         return message;
     }
 }

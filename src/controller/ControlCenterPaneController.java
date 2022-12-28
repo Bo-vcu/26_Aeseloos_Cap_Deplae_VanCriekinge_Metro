@@ -46,6 +46,8 @@ public class ControlCenterPaneController implements Observer {
     @Override
     public void update() {
         controlCenterPane.updateScannedCards();
+        ArrayList<String> alerts = metro.getAlertsList();
+        controlCenterPane.updateAlerts(alerts);
     }
 
     public void updateGates() {
@@ -59,6 +61,7 @@ public class ControlCenterPaneController implements Observer {
         }
         return scannedCards;
     }
+
 
 //    public void changeColor(int finalI1) {
 //        metro.changeColor(finalI1);

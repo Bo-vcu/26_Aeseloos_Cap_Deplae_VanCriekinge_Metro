@@ -35,6 +35,7 @@ import java.util.TreeMap;
 public class ControlCenterPane extends GridPane {
     private ControlCenterPaneController controlCenterPaneController;
     private Map<Integer, Integer> scannedGatesValues = new TreeMap<>();
+    private VBox alertBox;
 
     public ControlCenterPane(MetroFacade metro) {
         this.controlCenterPaneController = new ControlCenterPaneController(metro, this);
@@ -43,6 +44,7 @@ public class ControlCenterPane extends GridPane {
         this.setHgap(5);
 
         Group group = new Group();
+        Group alertsGroup = new Group();
         Button openMetroStationButton = new Button("Open Metrostation");
         openMetroStationButton.setOnAction(event -> {
             try {
@@ -72,6 +74,7 @@ public class ControlCenterPane extends GridPane {
         });
         group.getChildren().addAll(openMetroStationButton, closeMetroStationButton);
         this.add(group,0,1,1,1);
+        this.add(alertsGroup, 0,9,2,5);
 
         int i = 0;
         for (MetroGate metroGate : controlCenterPaneController.getAllGates()) {
@@ -112,6 +115,11 @@ public class ControlCenterPane extends GridPane {
             this.add(gateBox, i, 5);
             i++;
         }
+        alertBox = new VBox();
+        Text alerts = new Text("Alerts:");
+        alertBox.getChildren().add(alerts);
+        alertsGroup.getChildren().add(alertBox);
+
     }
     private void setColorActive(String id) {
         VBox box = (VBox) this.lookup("#" + id);
@@ -140,6 +148,14 @@ public class ControlCenterPane extends GridPane {
                     ((Text) node).setText((String.valueOf(scannedGatesValues.get(metroGate.getId()-1))));
                 }
             }
+        }
+    }
+
+    public void updateAlerts(ArrayList<String> alerts){
+        alertBox.getChildren().clear();
+        alertBox.getChildren().add(new Text("Alerts:"));
+        for (String alert : alerts){
+            alertBox.getChildren().add(new Text(alert));
         }
     }
 }

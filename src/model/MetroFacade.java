@@ -30,6 +30,7 @@ public class MetroFacade implements Subject {
 
     private ArrayList<MetroGate> metroGates = new ArrayList<>();
 
+    private ArrayList<String> alerts = new ArrayList<>();
     private Metrostation metrostation;
     private final int gates=3;
 
@@ -159,7 +160,6 @@ public class MetroFacade implements Subject {
             return "card is expired";
         }
         else {
-            notifyObservers(MetroEventEnum.SCAN_METROCARD);
             return metrostation.scanMetroGate(gateId, metroCardID);
         }
     }
@@ -188,6 +188,13 @@ public class MetroFacade implements Subject {
         }
     }
 
+    public void addAlert(String alert){
+        alerts.add(alert);
+    }
+
+    public ArrayList<String> getAlertsList() {
+        return alerts;
+    }
 
 
 //    public void changeColor(int finalI1) {
