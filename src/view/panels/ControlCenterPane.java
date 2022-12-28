@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,9 +28,13 @@ import model.database.loadSaveStrategies.MetroCardsExcelLoadSaveStrategy;
 import view.MetroStationView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class ControlCenterPane extends GridPane {
     private ControlCenterPaneController controlCenterPaneController;
+    private Map<Integer, Integer> scannedGatesValues = new TreeMap<>();
 
     public ControlCenterPane(MetroFacade metro) {
         this.controlCenterPaneController = new ControlCenterPaneController(metro, this);
@@ -99,6 +104,7 @@ public class ControlCenterPane extends GridPane {
             aantalScannedCards.setLayoutX(20 + 10*i);
             aantalScannedCards.setLayoutY(160);
             Text aantalScannedCardsValue = new Text(String.valueOf(metroGate.getAantalScannedCards()));
+            aantalScannedCardsValue.setId(String.valueOf(metroGate.getId()));
             aantalScannedCardsValue.setLayoutX(20 + 10*i);
             aantalScannedCardsValue.setLayoutY(190);
             gateBox.getChildren().addAll(gate, activate, deactivate, aantalScannedCards, aantalScannedCardsValue);
@@ -116,5 +122,24 @@ public class ControlCenterPane extends GridPane {
         VBox box = (VBox) this.lookup("#" + id);
         box.setStyle("-fx-background-color: orange;");
 
+    }
+
+    public void setAantalScannedCardsValues(){
+        ArrayList<MetroGate> gates =controlCenterPaneController.getAllGates();
+        for (int i=0;i<controlCenterPaneController.getAllGates().size();i++){
+            scannedGatesValues.put(i,gates.get(i).getAantalScannedCards());
+        }
+    }
+
+    public void updateScannedCards(){
+        setAantalScannedCardsValues();
+        for(MetroGate metroGate:controlCenterPaneController.getAllGates()){
+            VBox box = (VBox) this.lookup("#" + metroGate.getId());
+            for (Node node: box.getChildren()){
+                if (node instanceof Text && ((Text) node).getText().matches("[0-9]+")){
+                    ((Text) node).setText((String.valueOf(scannedGatesValues.get(metroGate.getId()-1))));
+                }
+            }
+        }
     }
 }

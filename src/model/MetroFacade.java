@@ -133,14 +133,16 @@ public class MetroFacade implements Subject {
 
     public void buyMetroCardTickets(int metrocardId, int amount){
         Metrocard metrocard = db.getMetroCardByID(metrocardId);
+        if (!isExpired(metrocard)){
+            String maand = String.valueOf(LocalDate.now().getMonthValue());
+            String jaar = String.valueOf(LocalDate.now().getYear());
 
-        String maand = String.valueOf(LocalDate.now().getMonthValue());
-        String jaar = String.valueOf(LocalDate.now().getYear());
+            metrocard.setMaand_jaar(maand+"#"+jaar);
+            metrocard.setAantalBeschikbare(metrocard.getAantalBeschikbare()+amount);
 
-        metrocard.setMaand_jaar(maand+"#"+jaar);
-        metrocard.setAantalBeschikbare(metrocard.getAantalBeschikbare()+amount);
+            notifyObservers(MetroEventEnum.BUY_METROTICKET);
+        }
 
-        notifyObservers(MetroEventEnum.BUY_METROTICKET);
     }
 
     public ArrayList<String> getMetroTicketsDiscountList(){

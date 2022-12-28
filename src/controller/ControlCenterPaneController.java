@@ -18,6 +18,7 @@ public class ControlCenterPaneController implements Observer {
     public ControlCenterPaneController(MetroFacade metro , ControlCenterPane controlCenterPane) {
         this.metro = metro;
         this.controlCenterPane = controlCenterPane;
+        this.metro.addObserver(MetroEventEnum.SCAN_METROCARD,this);
     }
 
     public ArrayList<MetroGate> getAllGates() {
@@ -44,11 +45,19 @@ public class ControlCenterPaneController implements Observer {
 
     @Override
     public void update() {
-
+        controlCenterPane.updateScannedCards();
     }
 
     public void updateGates() {
         metro.notifyObservers(MetroEventEnum.CHANGE_GATE);
+    }
+
+    public ArrayList<Integer> updateScannedCards() {
+        ArrayList<Integer> scannedCards = new ArrayList<>();
+        for (MetroGate metroGate: getAllGates()){
+            scannedCards.add(metroGate.getAantalScannedCards());
+        }
+        return scannedCards;
     }
 
 //    public void changeColor(int finalI1) {
