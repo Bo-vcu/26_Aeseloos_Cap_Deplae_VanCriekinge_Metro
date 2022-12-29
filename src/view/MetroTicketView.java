@@ -137,7 +137,14 @@ public class MetroTicketView extends GridPane {
 
 			explanationText.setText(exptxt);
 			int id = (int) choiceBox.getValue();
-			double price = metroTicketViewController.calculatePrice(is24Min, is64Plus, isStudent, id)*ritten;
+			double price = 0;
+			try {
+				price = metroTicketViewController.calculatePrice()*ritten;
+			} catch (InstantiationException e) {
+				throw new RuntimeException(e);
+			} catch (IllegalAccessException e) {
+				throw new RuntimeException(e);
+			}
 			totalPriceValue.setText("€" + String.valueOf(round(price, 2)));
 		});
 

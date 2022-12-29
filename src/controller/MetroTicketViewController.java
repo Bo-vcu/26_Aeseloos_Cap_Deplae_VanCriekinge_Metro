@@ -42,8 +42,8 @@ public class MetroTicketViewController implements Observer {
         metroTicketView.updateMetrocardIDList(ids);
     }
 
-    public double calculatePrice(boolean is24Min, boolean is64Plus, boolean isStudent, int id) {
-        double price = metro.getPrice(is24Min, is64Plus, isStudent, id);
+    public double calculatePrice() throws InstantiationException, IllegalAccessException {
+        double price = metro.getPrice();
         this.metroDiscountList = metro.getMetroTicketsDiscountList();
         return price;
     }

@@ -3,6 +3,8 @@ package model;
 import javafx.application.Platform;
 import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
+import model.TicketPriceDecorator.TicketPrice;
+import model.TicketPriceDecorator.TicketPriceDiscountEnum;
 import model.TicketPriceDecorator.TicketPriceFactory;
 import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.LoadSaveStrategy;
@@ -27,6 +29,8 @@ public class MetroFacade implements Subject {
     private Map<MetroEventEnum, List<Observer>> observers = new HashMap<>();
 
     private LoadSaveStrategy loadSaveStrategy;
+
+    private TicketPriceDiscountEnum ticketPrice;
 
     private ArrayList<MetroGate> metroGates = new ArrayList<>();
 
@@ -106,6 +110,10 @@ public class MetroFacade implements Subject {
         return db.getLastID();
     }
 
+    public TicketPriceDiscountEnum getTicketPrice() {
+        return ticketPrice;
+    }
+
     public void buyNewMetroCard() throws BiffException, IOException, WriteException {
         String maand = String.valueOf(LocalDate.now().getMonthValue());
         String jaar = String.valueOf(LocalDate.now().getYear());
@@ -116,20 +124,10 @@ public class MetroFacade implements Subject {
 
     }
 
-    public double getPrice(boolean is24Min, boolean is64Plus, boolean isStudent, int id){
-        if (db.getMetroCardByID(id).getAantalVerbruikte() > 50){
-            metroDiscountList.add(" -€0,20 FREQUENTTRAVELERDISCOUNT ");
-            //notifyObservers(TicketPriceDiscountEnum.FREQUENTTRAVELERDISCOUNT);
-        }
-        if (is64Plus){
-            metroDiscountList.add(" -€0.15 AGE64PLUSDISCOUNT ");
-            //notifyObservers(TicketPriceDiscountEnum.AGE64PLUSDISCOUNT);
-        }
-        if (isStudent){
-            metroDiscountList.add(" -€0.25 STUDENTDISCOUNT ");
-            //notifyObservers(TicketPriceDiscountEnum.STUDENTDISCOUNT);
-        }
-        return ticketPriceFactory.createTicketPrice(is24Min, is64Plus, isStudent, db.getMetroCardByID(id));
+    public double getPrice() throws InstantiationException, IllegalAccessException {
+        TicketPrice ticketPrice = ticketPriceFactory.newTicket(getTicketPrice());
+        double price = ticketPrice.getPrice();
+        return price;
     }
 
     public void buyMetroCardTickets(int metrocardId, int amount){
